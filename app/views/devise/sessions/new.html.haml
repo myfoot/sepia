@@ -1,0 +1,5 @@
+%div{ style: 'text-align: center' }
+  %h1 Please Sign In
+  
+  = link_to "<img src=\"https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png\"></i>".html_safe, user_omniauth_authorize_path(:twitter)
+  /  = link_to "sign in facebook", user_omniauth_authorize_path(:facebook)

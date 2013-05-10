@@ -1,4 +1,12 @@
 Sepia::Application.routes.draw do
+  root to: 'photos#index'
+
+  # for devise
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_scope :user do
+    get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
+    delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

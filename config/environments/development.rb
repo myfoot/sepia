@@ -26,4 +26,12 @@ Sepia::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  # for devise
+  # require "omniauth-twitter"
+  # require "omniauth-facebook"
+  Devise.setup do |config|
+    # config.omniauth :facebook, '{ID}', '{SECRET}', :scope => 'email,user_birthday', :display => 'popup'
+    config.omniauth :twitter, 'kNohoNYjzLmA30zwuS5dCQ', '8gPQThaEIvMvSvEELrkghnPM0yMA2vqLHUxHeYnSo', :display => 'popup'
+  end
 end

@@ -15,12 +15,16 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.0.1'
 
 # for authenticate
-gem 'devise'
+gem 'devise', github: 'idl3/devise', branch: 'rails4'#gem 'devise', '2.2.4'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'protected_attributes'
 
 #for view
 gem 'haml-rails'
+gem "therubyracer"
+gem "less-rails"
+gem "twitter-bootstrap-rails"
 
 group :development, :test do
   gem 'rspec-rails'
