@@ -28,8 +28,12 @@
                 %li= link_to "Link 1", "/path1"
                 %li= link_to "Link 2", "/path2"
                 %li= link_to "Link 3", "/path3"
-              .nav.pull-right{ style: 'height: 100%;'}
-                = button_to 'SignOut', destroy_user_session_path, method: :delete, class: "btn", form_class: 'navbar-form'
+              .nav.row.pull-right{ style: 'height: 100%;'}
+                .span1
+                  = button_to current_user, method: :get, class: "btn", form_class: 'navbar-form' do 
+                    Account
+                .span1
+                  = button_to 'SignOut', destroy_user_session_path, method: :delete, class: "btn", form_class: 'navbar-form'
             
     #contents.container-fluid
 
