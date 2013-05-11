@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20130510144641) do
   create_table "access_tokens", force: true do |t|
     t.integer  "user_id"
     t.string   "provider"
+    t.string   "uid"
     t.string   "token"
     t.string   "secret"
     t.datetime "created_at"
