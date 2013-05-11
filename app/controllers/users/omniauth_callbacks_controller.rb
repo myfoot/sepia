@@ -1,4 +1,3 @@
-require 'pp'
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
     @user = User.find_or_create_by_auth(name: auth.info.nickname,
