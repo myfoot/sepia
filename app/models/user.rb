@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
       user = access_token.try(:user)
       if user.nil?
         user = User.create(name: name, email: email)
-        access_token = AccessToken.create(provider: provider, uid: uid, token: token, secret: secret, user_id: user.id)
+        access_token = AccessToken.create(provider: provider, uid: uid, token: token, secret: secret, user_id: user.id, name: name)
       else
         access_token.update(token: token, secret: secret)
       end

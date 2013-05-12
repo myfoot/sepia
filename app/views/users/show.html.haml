@@ -19,9 +19,8 @@
     - @user.access_tokens.each do |access_token|
       %dt 
         = access_token.provider.capitalize
-      - # ここはユーザー名にしたい
       %dd 
-        = access_token.uid
+        = (access_token.twitter? ? "@" : "") + access_token.name
 
 %script
   UserActions.bindUpdate(#{current_user.id}, "user_name", "user_email");

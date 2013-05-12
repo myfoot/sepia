@@ -4,6 +4,7 @@ class CreateAccessTokens < ActiveRecord::Migration
       t.integer :user_id
       t.string :provider
       t.string :uid
+      t.string :name
       t.string :token
       t.string :secret
       t.timestamps

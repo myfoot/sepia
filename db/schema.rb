@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20130510144641) do
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
+    t.string   "name"
     t.string   "token"
     t.string   "secret"
     t.datetime "created_at"
