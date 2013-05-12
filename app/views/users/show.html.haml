@@ -17,18 +17,4 @@
   %h2 Connecting Services
 
 %script
-  setTimeout(function(){
-  var user = new User(#{current_user.id});
-  var timer;
-  var updateFunc = function(){
-  if (timer) clearTimeout(timer);
-  timer = setTimeout(function() {
-  var p = user.update($('#user_name').val(), $('#user_email').val());
-  p.done(function(a,b,c){ console.log(a);console.log(b);console.log(c); });
-  timer = null;
-  }, 1000);
-  };
-  $('#user_name').change(updateFunc);
-  $('#user_email').change(updateFunc);
-  console.log('OK');
-  }, 1000);
+  UserActions.bindUpdate(#{current_user.id}, "user_name", "user_email");
