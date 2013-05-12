@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email
 
+  has_many :access_tokens
+
   validates :name, presence: true
 
   class << self

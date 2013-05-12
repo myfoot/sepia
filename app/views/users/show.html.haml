@@ -15,6 +15,13 @@
 
 .hero-unit
   %h2 Connecting Services
+  %dl.dl-horizontal
+    - @user.access_tokens.each do |access_token|
+      %dt 
+        = access_token.provider.capitalize
+      - # ここはユーザー名にしたい
+      %dd 
+        = access_token.uid
 
 %script
   UserActions.bindUpdate(#{current_user.id}, "user_name", "user_email");
