@@ -11,8 +11,12 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def add_token_if_not_exist(provider, name: "", uid: "", token: "", secret: "")
+    access_tokens << AccessToken.new(provider: provider, uid: uid, token: token, secret: secret, name: name) if access_tokens.where(provider: provider).count == 0
+  end
+
   class << self
-    def find_or_create_by_auth(name: "", email: "",  provider: "", uid: "", token: "", secret: "", **others)
+    def find_or_create_by_auth(provider: "", name: "", email: "", uid: "", token: "", secret: "", **others)
       access_token = AccessToken.where(provider: provider, uid: uid).first
       user = access_token.try(:user)
       if user.nil?

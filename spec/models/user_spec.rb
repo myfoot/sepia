@@ -7,7 +7,7 @@ describe User do
   let(:uid) { "1234567890" }
   let(:token) { "hoge" }
   let(:secret) { "secret" }
-  let(:access_token) { AccessToken.create(user_id: user.id, uid: uid, token: token, secret: secret, provider: provider) }
+  let(:access_token) { AccessToken.create!(user_id: user.id, uid: uid, token: token, secret: secret, provider: provider) }
 
   describe "validations" do
     describe "name" do
@@ -23,20 +23,42 @@ describe User do
     end
   end
 
+  describe "#add_token_if_not_exist" do
+    before do
+      user.save
+    end
+    context "指定したプロバイダのAccessTokenが対象ユーザーに既に登録済みの場合" do
+      it "新規に登録されない" do
+        user.add_token_if_not_exist(access_token.provider, {})
+        expect(user.access_tokens.size).to eq(1)
+      end
+    end
+    context "指定したプロバイダのAccessTokenが対象ユーザーに未登録の場合" do
+      before do
+        access_token
+      end
+      it "新規に登録される" do
+        user.add_token_if_not_exist(:facebook, {})
+        expect(user.access_tokens.size).to eq(2)
+      end
+    end
+  end
+
   describe ".find_or_create" do
     before do
       user.save
       access_token
     end
     context "provider, uid が一致するユーザーが存在する場合" do
-      subject { User.find_or_create_by_auth(name: "hoge", email: "aaa", provider: provider, uid: uid, token: token, secret: secret) }
+      subject { User.find_or_create_by_auth(name: "hoge", provider: provider, uid: uid, token: token, secret: secret) }
       it { should == user }
     end
     context "provider, uid が一致するユーザーが存在しない場合" do
-      subject { User.find_or_create_by_auth(name: "hoge", email: "aaa", provider: provider, uid: "aaaaaa", token: token, secret: secret) }
+      subject { User.find_or_create_by_auth(name: "hoge", provider: provider, uid: "aaaaaa", token: token, secret: secret) }
       it "新規ユーザーを取得できる" do
         expect(subject).not_to eq(user)
       end
     end
   end
+
 end
