@@ -24,7 +24,7 @@
     .navbar.navbar-fluid-top
       .navbar-inner
         .container-fluid
-          %a.brand(href="#") Sepia
+          = link_to image_tag('logo.png', class: 'brand', width: "90px", style: "padding: 8px 20px 0px"), root_path
           .container.nav-collapse
             - if user_signed_in?
               %ul.nav
@@ -44,6 +44,7 @@
         - if user_signed_in?
           .span3
             .well.sidebar-nav
+              = link_to image_tag('logo.png'), root_path
               %ul.nav.nav-list
                 %li.nav-header Sidebar
                 %li= link_to "Link 1", "/path1"
