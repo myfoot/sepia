@@ -16,11 +16,18 @@
 .hero-unit
   %h2 Connecting Services
   %dl.dl-horizontal
-    - @user.access_tokens.each do |access_token|
-      %dt 
-        = access_token.provider.capitalize
-      %dd 
-        = (access_token.twitter? ? "@" : "") + access_token.name
-
+    - tokens = @user.access_tokens.inject({}){ |acc, token| acc[token.provider.to_sym] = token; acc}
+    - [:facebook, :twitter].each do |provider|
+      %div{style: "margin-bottom: 10px"}
+      - if token = tokens[provider]
+        %dt 
+          = token.provider.capitalize
+        %dd 
+          = (token.twitter? ? "@" : "") + token.name
+      - else
+        %dt 
+          = provider.capitalize
+        %dd 
+          = button_to "Add Account", user_omniauth_authorize_path(provider, origin: polymorphic_url(@user), user_id: current_user.id), class: "btn btn-primary btn-small"
 %script
   UserActions.bindUpdate(#{current_user.id}, "user_name", "user_email");
