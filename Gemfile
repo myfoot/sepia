@@ -25,7 +25,7 @@ gem 'omniauth-twitter'
 gem 'protected_attributes'
 
 #for view
-gem 'haml-rails'
+gem 'slim-rails'
 gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
