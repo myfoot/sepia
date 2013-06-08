@@ -1,33 +1,33 @@
-%h1 Your Status
+h1 Your Status
 
 .hero-unit
-  %h2 Base Informations
+  h2 Base Informations
   = form_for @user, html: { id: 'user-edit-form', class: 'form-horizontal' } do |f|
     .control-group
-      %label.control-label{for: 'name'}
-        Name
+      label.control-label for='name' 
+        | Name
       .controls
         = f.text_field :name, name: 'name', style: 'margin-bottom:10px'
-      %label.control-label{for: 'email'}
-        E-Mail
+      label.control-label for='email' 
+        | E-Mail
       .controls
         = f.email_field :email, name: 'email', style: 'margin-bottom:10px'
 
 .hero-unit
-  %h2 Connecting Services
-  %dl.dl-horizontal
+  h2 Connecting Services
+  dl.dl-horizontal
     - tokens = @user.access_tokens.inject({}){ |acc, token| acc[token.provider.to_sym] = token; acc}
     - [:facebook, :twitter].each do |provider|
-      %div{style: "margin-bottom: 10px"}
+      div style="margin-bottom: 10px" 
       - if token = tokens[provider]
-        %dt 
+        dt
           = token.provider.capitalize
-        %dd 
+        dd
           = (token.twitter? ? "@" : "") + token.name
       - else
-        %dt 
+        dt
           = provider.capitalize
-        %dd 
+        dd
           = button_to "Add Account", user_omniauth_authorize_path(provider, origin: polymorphic_url(@user), user_id: current_user.id), class: "btn btn-primary btn-small"
-%script
-  UserActions.bindUpdate(#{current_user.id}, "user_name", "user_email");
+script
+  | UserActions.bindUpdate(#{current_user.id}, "user_name", "user_email");
