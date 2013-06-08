@@ -209,7 +209,7 @@ Devise.setup do |config|
   # for devise
   Devise.setup do |config|
     OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
-    config.omniauth :facebook, Settings.social.facebook.token, Settings.social.facebook.secret, :scope => 'email,user_birthday', :display => 'popup'
-    config.omniauth :twitter, Settings.social.twitter.token, Settings.social.twitter.secret, :display => 'popup'
+    config.omniauth :facebook, Settings.social.facebook.consumer_key, Settings.social.facebook.consumer_secret, :scope => 'email,user_birthday', :display => 'popup'
+    config.omniauth :twitter, Settings.social.twitter.consumer_key, Settings.social.twitter.consumer_secret, :display => 'popup'
   end
 end
