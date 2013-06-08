@@ -1,0 +1,7 @@
+social:
+  twitter:
+    secret: ''
+    token: ''
+  facebook:
+    secret: ''
+    token: ''

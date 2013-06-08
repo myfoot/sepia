@@ -206,4 +206,10 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
+  # for devise
+  Devise.setup do |config|
+    OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
+    config.omniauth :facebook, Settings.social.facebook.token, Settings.social.facebook.secret, :scope => 'email,user_birthday', :display => 'popup'
+    config.omniauth :twitter, Settings.social.twitter.token, Settings.social.twitter.secret, :display => 'popup'
+  end
 end
