@@ -1,7 +1,7 @@
 social:
   twitter:
-    secret: ''
-    token: ''
+    consumer_key: ''
+    consumer_secret: ''
   facebook:
-    secret: ''
-    token: ''
+    consumer_key: ''
+    consumer_secret: ''
