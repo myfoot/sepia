@@ -26,11 +26,4 @@ Sepia::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
-
-  # for devise
-  Devise.setup do |config|
-    OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
-    config.omniauth :facebook, '557435897634269', '02d68c898538bf26a2eeddd41a10d348', :scope => 'email,user_birthday', :display => 'popup'
-    config.omniauth :twitter, 'kNohoNYjzLmA30zwuS5dCQ', '8gPQThaEIvMvSvEELrkghnPM0yMA2vqLHUxHeYnSo', :display => 'popup'
-  end
 end
