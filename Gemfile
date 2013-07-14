@@ -7,7 +7,11 @@ gem 'rails', '4.0.0'
 gem 'mysql2'
 # 依存先のバージョンがぶつかってる
 # gem 'redis-store', '1.1.3'
-# gem 'redis-rails', '3.2.3'
+gem 'redis-store', github: "bricker/redis-store"
+gem 'redis-actionpack', github: "bricker/redis-store"
+gem 'redis-activesupport', github: "bricker/redis-store"
+gem 'redis-rack', github: "bricker/redis-store"
+gem 'redis-rails', '3.2.3'
 
 #for settings
 gem 'rails_config'
