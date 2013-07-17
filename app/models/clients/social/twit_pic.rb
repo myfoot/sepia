@@ -1,11 +1,17 @@
 module Clients
   module Social
     class TwitPic
+      attr_reader :user_id
       RESOURCE_URL = "http://api.twitpic.com/2/users/show.json"
       MAX_PER_PAGE = 20
 
       def initialize access_token
         @user_name = access_token.name
+        @user_id = access_token.user_id
+      end
+
+      def provider
+        :twitter
       end
 
       def photos last_date=nil, page=1
@@ -29,7 +35,8 @@ module Clients
 
       private
       def photo(image, posted_at)
-        Photo.new(provider: :twit_pic,
+        Photo.new(user_id: @user_id,
+                  provider: :twit_pic,
                   platform_id: image["short_id"],
                   format: image["type"],
                   message: image["message"],

@@ -1,3 +1,4 @@
 class Photo < ActiveRecord::Base
-  attr_accessible :provider, :platform_id, :format, :message, :width, :height, :posted_at
+  belongs_to :user
+  attr_accessible :user_id, :provider, :platform_id, :format, :message, :width, :height, :posted_at
 end
