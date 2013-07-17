@@ -2,6 +2,7 @@ class CreatePhotos < ActiveRecord::Migration
   def change
     create_table :photos do |t|
       t.integer :user_id, null: false
+      t.string :type, null: false
       t.string :platform_id, null: false
       t.string :provider, null: false
       t.string :format, null: false

@@ -26,36 +26,49 @@ describe Clients::Social::TwitPic do
       end
     end
 
-    context "日付指定なしの場合" do
-      subject { client.photos }
-      before do
-        client.should_receive(:page_images).once.and_return(max_json_array)
-        client.should_receive(:page_images).once.and_return(few_json_array)
-      end
-      it "全データを取得する" do
-        expect(subject.size).to eq(max_json_array.size + few_json_array.size)
-        expect(subject.last.platform_id).to eq(few_json_array.last["short_id"])
-      end
-    end
+    context "データが存在する場合" do
 
-    context "日付指定ありの場合" do
-      subject { client.photos Time.parse("2013-06-09 23:10:57") }
-      before do
-        client.should_receive(:page_images).once.and_return(max_json_array)
+      describe "戻り値の型" do
+        subject { client.photos.first }
+        before do
+          client.should_receive(:page_images).once.and_return(few_json_array)
+        end
+        it "Photo::TwitPicのオブジェクトを返す" do
+          expect(subject).to be_a(Photo::TwitPic)
+        end
       end
-      it "指定した日付より後のデータを取得する" do
-        expect(subject.size).to eq(2)
-        expect(subject.last.platform_id).to eq(max_json_array[1]["short_id"])
-      end
-    end
 
-    context "ページ指定あり場合" do
-      before do
-        client.should_receive(:page_images).once.and_return(few_json_array)
+      context "日付指定なしの場合" do
+        subject { client.photos }
+        before do
+          client.should_receive(:page_images).once.and_return(max_json_array)
+          client.should_receive(:page_images).once.and_return(few_json_array)
+        end
+        it "全データを取得する" do
+          expect(subject.size).to eq(max_json_array.size + few_json_array.size)
+          expect(subject.last.platform_id).to eq(few_json_array.last["short_id"])
+        end
       end
-      it "指定ページ以降のデータを取得する" do
-        client.should_receive(:uri).once.with(anything(), 2);
-        client.photos nil, 2
+
+      context "日付指定ありの場合" do
+        subject { client.photos Time.parse("2013-06-09 23:10:57") }
+        before do
+          client.should_receive(:page_images).once.and_return(max_json_array)
+        end
+        it "指定した日付より後のデータを取得する" do
+          expect(subject.size).to eq(2)
+          expect(subject.last.platform_id).to eq(max_json_array[1]["short_id"])
+        end
+      end
+
+      context "ページ指定あり場合" do
+        before do
+          client.should_receive(:page_images).once.and_return(few_json_array)
+        end
+        it "指定ページ以降のデータを取得する" do
+          client.should_receive(:uri).once.with(anything(), 2);
+          client.photos nil, 2
+        end
       end
     end
   end

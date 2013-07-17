@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email
 
   has_many :access_tokens
+  has_many :photos
 
   validates :name, presence: true
 
