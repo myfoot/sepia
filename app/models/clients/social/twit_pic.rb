@@ -35,14 +35,14 @@ module Clients
 
       private
       def photo(image, posted_at)
-        Photo.new(user_id: @user_id,
-                  provider: :twit_pic,
-                  platform_id: image["short_id"],
-                  format: image["type"],
-                  message: image["message"],
-                  width: image["width"],
-                  height: image["height"],
-                  posted_at:  posted_at)
+        Photo::TwitPic.new(user_id: @user_id,
+                           provider: :twit_pic,
+                           platform_id: image["short_id"],
+                           format: image["type"],
+                           message: image["message"],
+                           width: image["width"],
+                           height: image["height"],
+                           posted_at:  posted_at)
       end
 
       def page_images(uri)

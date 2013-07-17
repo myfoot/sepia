@@ -1,1 +1,11 @@
 h1 Photos#index
+
+div style='padding: 10px'
+  - @photos.each_slice(3) do |photos|
+    div.row
+      div.span4
+        = image_tag(photos[0].thumbnail_url) if photos[0]
+      div.span4
+        = image_tag(photos[1].thumbnail_url) if photos[1]
+      div.span4
+        = image_tag(photos[2].thumbnail_url) if photos[2]
