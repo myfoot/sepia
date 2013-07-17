@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20130608080151) do
   end
 
   create_table "photos", force: true do |t|
+    t.integer  "user_id",     null: false
     t.string   "platform_id", null: false
     t.string   "provider",    null: false
     t.string   "format",      null: false

@@ -8,6 +8,11 @@ Sepia::Application.routes.draw do
     get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
+
+  # TODO : authenticate
+  require 'sidekiq/web'
+  mount Sidekiq::Web, at: '/sidekiq'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

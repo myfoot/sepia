@@ -18,6 +18,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       token: auth.credentials.token,
       secret: auth.credentials.secret
     }
+    @user.access_tokens.where(provider: :twitter).select(:id).each{|access_token|
+      PhotoCrawler.perform_async(Clients::Social::TwitPic.to_s, access_token.id)
+    }
   end
 
   private
@@ -27,7 +30,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def create_and_redirect provider, option
     if (origin = request.env['omniauth.origin']) && (user_id = request.env["omniauth.params"]["user_id"])
-      User.find(user_id).add_token_if_not_exist provider, option
+      @user = User.find(user_id)
+      @user.add_token_if_not_exist provider, option
       safe_redirect origin
     else
       @user = User.find_or_create_by_auth(option.merge({provider: provider}))

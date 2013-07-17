@@ -3,12 +3,14 @@
 ## System dependencies
 
 - `Ruby` : 2.0
-- `Rails` : 4.0.0-rc
+- `Rails` : 4.0.0
 - `MySQL` : 5.6
 
 ## Configuration
 
 ### config/settings.yml
+
+Please copy the `config/settings.yml.sample` to `config/settings.yml` .
 
 ```yaml
 social:
@@ -62,4 +64,18 @@ $ rake db:migrate
 
 ```shell
 $ rspec
+```
+
+## How to run the `Sepia`
+
+### if you want to start with WEBrik
+
+```shell
+$ bundle exec rails s
+```
+
+### Start the sidekiq
+
+```shell
+$ bundle exec sidekiq
 ```
