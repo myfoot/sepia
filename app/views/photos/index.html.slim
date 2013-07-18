@@ -4,8 +4,15 @@ div style='padding: 10px'
   - @photos.each_slice(3) do |photos|
     div.row
       div.span4
-        = image_tag(photos[0].thumbnail_url) if photos[0]
+        -  if photos[0]
+          div = image_tag(photos[0].thumbnail_url)
+          p == photos[0].message
       div.span4
-        = image_tag(photos[1].thumbnail_url) if photos[1]
+        -  if photos[1]
+          div = image_tag(photos[1].thumbnail_url)
+          p == photos[1].message
       div.span4
-        = image_tag(photos[2].thumbnail_url) if photos[2]
+        -  if photos[2]
+          div = image_tag(photos[2].thumbnail_url)
+          p == photos[2].message
+          
