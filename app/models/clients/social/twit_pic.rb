@@ -36,7 +36,7 @@ module Clients
       private
       def photo(image, posted_at)
         Photo::TwitPic.new(user_id: @user_id,
-                           provider: :twit_pic,
+                           provider: self.provider,
                            platform_id: image["short_id"],
                            format: image["type"],
                            message: image["message"],
