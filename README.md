@@ -27,7 +27,7 @@ social:
 ```yaml
 development:
   adapter: mysql2
-  database: sepia-dev
+  database: sepia_dev
   pool: 5
   username: root
   password: password
