@@ -1,5 +1,7 @@
 # Sepia
 
+[![Build Status](https://travis-ci.org/myfoot/sepia.png?branch=develop)](https://travis-ci.org/myfoot/sepia)
+
 ## System dependencies
 
 - `Ruby` : 2.0
