@@ -51,7 +51,7 @@ describe Clients::Social::TwitPic do
       end
 
       context "日付指定ありの場合" do
-        subject { client.photos Time.parse("2013-06-09 23:10:57") }
+        subject { client.photos Time.parse("2013-06-09 14:10:57 UTC") }
         before do
           client.should_receive(:page_images).once.and_return(max_json_array)
         end

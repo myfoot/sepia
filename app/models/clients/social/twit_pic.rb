@@ -22,7 +22,7 @@ module Clients
 
           tmp = images.inject([]){|acc, image|
             posted_at = posted_at(image)
-            acc << photo(image, posted_at) if !last_date || last_date < posted_at
+            acc << photo(image, posted_at) if !last_date || last_date.localtime < posted_at
             acc
           }
           photos.concat tmp
