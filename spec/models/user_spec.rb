@@ -8,6 +8,7 @@ describe User do
   let(:token) { "hoge" }
   let(:secret) { "secret" }
   let(:access_token) { AccessToken.create!(user_id: user.id, uid: uid, token: token, secret: secret, provider: provider) }
+  let(:other_token) { AccessToken.create!(user_id: 100, uid: uid, token: "other_token", secret: "other_secret", provider: provider) }
 
   describe "validations" do
     describe "name" do
@@ -40,6 +41,21 @@ describe User do
       it "新規に登録される" do
         user.add_token_if_not_exist(:facebook, {})
         expect(user.access_tokens.size).to eq(2)
+      end
+    end
+    context "指定したuidのトークンが既に別ユーザーで登録済みの場合" do
+      before do
+        other_token
+      end
+      it "自分のトークンとして更新する" do
+        user.add_token_if_not_exist(:twitter, {name: user.name, uid: uid, token: token, secret: secret})
+
+        expect(user.access_tokens.size).to eq(1)
+
+        new_token = user.access_tokens.first
+        expect(new_token.persisted?).to be_true
+        expect(new_token.token).to eq(token)
+        expect(new_token.secret).to eq(secret)
       end
     end
   end
