@@ -23,19 +23,31 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     }
   end
 
+  def google_oauth2
+    create_and_redirect :google_oauth2, {
+      name: auth.info.name,
+      email: auth.info.email,
+      uid: auth.uid,
+      token: auth.credentials.token,
+      secret: auth.credentials.secret
+    }
+  end
+
   private
   def auth
-    request.env["omniauth.auth"]
+    @auth ||= request.env["omniauth.auth"]
   end
 
   def create_and_redirect provider, option
-    if (origin = request.env['omniauth.origin']) && (user_id = request.env["omniauth.params"]["user_id"])
-      @user = User.find(user_id)
-      @user.add_token_if_not_exist provider, option
-      safe_redirect origin
-    else
-      @user = User.find_or_create_by_auth(option.merge({provider: provider}))
-      redirect_to_authentication provider.capitalize
+    ActiveRecord::Base.transaction do
+      if (origin = request.env['omniauth.origin']) && (user_id = request.env["omniauth.params"]["user_id"])
+        @user = User.find(user_id)
+        @user.add_token_if_not_exist provider, option
+        safe_redirect origin
+      else
+        @user = User.find_or_create_by_auth(option.merge({provider: provider}))
+        redirect_to_authentication provider.capitalize
+      end
     end
   end
 

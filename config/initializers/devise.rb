@@ -211,5 +211,6 @@ Devise.setup do |config|
     OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
     config.omniauth :facebook, Settings.social.facebook.consumer_key, Settings.social.facebook.consumer_secret, :scope => 'email,user_birthday', :display => 'popup'
     config.omniauth :twitter, Settings.social.twitter.consumer_key, Settings.social.twitter.consumer_secret, :display => 'popup'
+    config.omniauth :google_oauth2, Settings.social.google.consumer_key, Settings.social.google.consumer_secret
   end
 end
