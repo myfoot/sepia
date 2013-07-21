@@ -4,3 +4,4 @@ div style='text-align: center'
   ul.unstyled
     li = link_to "<img src=\"https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png\"></i>".html_safe, user_omniauth_authorize_path(:twitter)
     li = link_to "sign in facebook", user_omniauth_authorize_path(:facebook)
+    li = link_to "sign in google", user_omniauth_authorize_path(:google_oauth2)

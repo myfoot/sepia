@@ -5,3 +5,6 @@ social:
   facebook:
     consumer_key: ''
     consumer_secret: ''
+  google:
+    consumer_key: ''
+    consumer_secret: ''
