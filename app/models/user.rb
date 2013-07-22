@@ -13,7 +13,15 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   def add_token_if_not_exist(provider, name: "", uid: "", token: "", secret: "", **others)
-    access_tokens << AccessToken.new(provider: provider, uid: uid, token: token, secret: secret, name: name) if access_tokens.where(provider: provider).count == 0
+    return unless access_tokens.where(provider: provider).count == 0
+    exist_token = AccessToken.where(provider: provider, uid: uid).first
+    if exist_token
+      exist_token.token = token
+      exist_token.secret = secret
+      access_tokens << exist_token
+    else
+      access_tokens << AccessToken.new(provider: provider, uid: uid, token: token, secret: secret, name: name) 
+    end
   end
 
   class << self
