@@ -25,12 +25,12 @@ class User < ActiveRecord::Base
   end
 
   class << self
-    def find_or_create_by_auth(provider: "", name: "", email: "", uid: "", token: "", secret: "", **others)
+    def find_or_create_by_auth(provider: "", name: "", email: "", uid: "", token: "", refresh_token: "", secret: "", **others)
       access_token = AccessToken.where(provider: provider, uid: uid).first
       user = access_token.try(:user)
       if user.nil?
         user = User.create(name: name, email: email)
-        access_token = AccessToken.create(provider: provider, uid: uid, token: token, secret: secret, user_id: user.id, name: name)
+        access_token = AccessToken.create(provider: provider, uid: uid, token: token, refresh_token: refresh_token, secret: secret, user_id: user.id, name: name)
       else
         access_token.update(token: token, secret: secret)
       end

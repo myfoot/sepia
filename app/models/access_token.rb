@@ -1,6 +1,6 @@
 class AccessToken < ActiveRecord::Base
-  PROVIDERS = [:twitter, :facebook]
-  attr_accessible :user_id, :provider, :name, :uid, :token, :secret
+  PROVIDERS = [:twitter, :facebook, :google_oauth2]
+  attr_accessible :user_id, :provider, :name, :uid, :token, :refresh_token, :secret
   belongs_to :user
 
   validates :user_id, presence: true
