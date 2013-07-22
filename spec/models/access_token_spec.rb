@@ -5,6 +5,7 @@ describe AccessToken do
   let(:user) { User.create(name: 'hoge') }
   let(:access_token) { AccessToken.create(user_id: user.id, token: 'aaa', secret: 'bbb', provider: :twitter, uid: "1234567890")}
   let(:access_token_fb) { AccessToken.create(user_id: user.id, token: 'aaa', secret: 'bbb', provider: :facebook, uid: "12345678901")}
+  let(:access_token_google) { AccessToken.create(user_id: user.id, token: 'aaa', secret: 'bbb', provider: :google_oauth2, uid: "12345678901")}
 
   describe "relations" do
     describe "#user" do
@@ -49,6 +50,7 @@ describe AccessToken do
     it "providerを判定できる" do
       expect(access_token).to be_twitter
       expect(access_token_fb).to be_facebook
+      expect(access_token_google).to be_google_oauth2
     end
   end
 
