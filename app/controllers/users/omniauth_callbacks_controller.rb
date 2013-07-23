@@ -29,6 +29,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       email: auth.info.email,
       uid: auth.uid,
       token: auth.credentials.token,
+      refresh_token: auth.credentials.refresh_token,
       secret: auth.credentials.secret
     }
   end
