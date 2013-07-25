@@ -10,6 +10,7 @@ class CreatePhotos < ActiveRecord::Migration
       t.integer :width
       t.integer :height
       t.datetime :posted_at
+      t.text :optional
       t.timestamps
     end
   end
