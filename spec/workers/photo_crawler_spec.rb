@@ -12,7 +12,7 @@ describe PhotoCrawler do
   let(:photo_crawler) { PhotoCrawler.new }
   let(:client) { Clients::Social::TwitPic.new(access_token) }
   let(:exist_photo) { Photo.new(platform: :twitter, platform_id: "10000", format: "png", posted_at: Time.now - 2.days) }
-  let(:photo) { Photo.new(platform: :twitter, platform_id: "12000", format: "png", posted_at: Time.now) }
+  let(:photo) { Photo::TwitPic.new(user_id: user.id, provider: :twitter, platform: :twitter, platform_id: "12000", format: "png", posted_at: Time.now) }
 
   before do
     client
@@ -27,7 +27,7 @@ describe PhotoCrawler do
       end
       it "渡されたクライアントを使用して全写真を取得し登録する" do
         client.should_receive(:photos).with(nil).and_return([photo])
-        photo.should_receive(:save)
+        photo.should_receive(:save!)
         photo_crawler.perform(Clients::Social::TwitPic.to_s, access_token.id)
       end
     end
@@ -37,7 +37,7 @@ describe PhotoCrawler do
       end
       it "渡されたクライアントを使用して最終登録日以降の写真を取得し登録する" do
         client.should_receive(:photos).with(exist_photo.posted_at) { [photo] }
-        photo.should_receive(:save)
+        photo.should_receive(:save!)
         photo_crawler.perform(Clients::Social::TwitPic.to_s, access_token.id)
       end
     end

@@ -18,9 +18,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       token: auth.credentials.token,
       secret: auth.credentials.secret
     }
-    @user.access_tokens.where(provider: :twitter).select(:id).each{|access_token|
-      PhotoCrawler.perform_async(Clients::Social::TwitPic.to_s, access_token.id)
-    }
+    scheduled_crawl(:twitter, Clients::Social::TwitPic)
   end
 
   def google_oauth2
@@ -32,6 +30,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       refresh_token: auth.credentials.refresh_token,
       secret: auth.credentials.secret
     }
+    scheduled_crawl(:google_oauth2, Clients::Social::Google)
   end
 
   private
@@ -57,4 +56,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     sign_in_and_redirect @user, :event => :authentication
   end
 
+  def scheduled_crawl provider, client_klass
+    @user.access_tokens.where(provider: provider).select(:id).each{|access_token|
+      PhotoCrawler.perform_async(client_klass.to_s, access_token.id)
+    }
+  end
 end
