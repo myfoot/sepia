@@ -43,6 +43,8 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 
+gem 'nokogiri'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'spork'
