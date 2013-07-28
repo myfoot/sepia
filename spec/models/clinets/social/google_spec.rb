@@ -87,7 +87,7 @@ describe Clients::Social::Google do
   }
   let(:few_result) {
     date = Time.parse('2013-05-31');
-    (Clients::Social::Google::MAX_PER_PAGE - 490).times.map{|i|
+    (Clients::Social::Google::MAX_PER_PAGE * 0.1).to_i.times.map{|i|
       date -= 1.day
       ymd = date.strftime("%Y-%m-%d")
       Clients::Social::GooglePhoto.new(Nokogiri::XML(ERB.new(xml_template).result(binding)).xpath('//xmlns:entry').first)
@@ -142,7 +142,7 @@ describe Clients::Social::Google do
 
       context "ページ指定あり場合" do
         before do
-          client.should_receive(:page_data).with(500).once.and_return(few_result)
+          client.should_receive(:page_data).with(Clients::Social::Google::MAX_PER_PAGE).once.and_return(few_result)
         end
         it "指定ページ以降のデータを取得する" do
           client.photos nil, 2
