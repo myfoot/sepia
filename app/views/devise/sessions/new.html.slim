@@ -1,7 +1,10 @@
-div style='text-align: center'  
+- content_for :header do
+  link href="http://fonts.googleapis.com/css?family=Pompiere" rel="stylesheet" type="text/css"
+  = stylesheet_link_tag "zocial", :media => "all"
+div style='text-align: center; margin-top: 100px; margin-bottom: 100px'
   = image_tag('logo.png')
   h3 Plese Sign in with ...
   ul.unstyled
-    li = link_to "<img src=\"https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png\"></i>".html_safe, user_omniauth_authorize_path(:twitter)
-    li = link_to "sign in facebook", user_omniauth_authorize_path(:facebook)
-    li = link_to "sign in google", user_omniauth_authorize_path(:google_oauth2)
+    li = link_to "sign in with twitter", user_omniauth_authorize_path(:twitter), class: "zocial twitter", style: "margin-bottom: 10px"
+    li = link_to "sign in with facebook", user_omniauth_authorize_path(:facebook), class: 'zocial facebook', style: "margin-bottom: 10px"
+    li = link_to "sign in with google", user_omniauth_authorize_path(:google_oauth2), class: 'zocial google', style: "margin-bottom: 10px"
