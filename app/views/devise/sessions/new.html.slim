@@ -3,7 +3,7 @@
   = stylesheet_link_tag "zocial", :media => "all"
 div style='text-align: center; margin-top: 100px; margin-bottom: 100px'
   = image_tag('logo.png')
-  h3 Plese Sign in with ...
+  h3 Please Sign in with ...
   ul.unstyled
     li = link_to "sign in with twitter", user_omniauth_authorize_path(:twitter), class: "zocial twitter", style: "margin-bottom: 10px"
     li = link_to "sign in with facebook", user_omniauth_authorize_path(:facebook), class: 'zocial facebook', style: "margin-bottom: 10px"
