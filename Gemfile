@@ -37,6 +37,7 @@ gem 'slim-rails'
 gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
+gem 'font-awesome-rails'
 
 # for background job
 gem 'sidekiq'
