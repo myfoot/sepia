@@ -15,45 +15,31 @@ html(lang="en")
     link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72")
     link(href="images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
     = yield :header if content_for?(:header)
-
   body
     /!
       | Javascripts
       | \==================================================
     /! Placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
-    - if user_signed_in?
-      .navbar.navbar-fluid-top
-        .navbar-inner
-          .container-fluid
-            = link_to image_tag('logo.png', class: 'brand', width: "90px", style: "padding: 8px 20px 0px"), root_path
-            .container.nav-collapse
-              ul.nav
-                li= link_to "Link 1", "/path1"
-                li= link_to "Link 2", "/path2"
-                li= link_to "Link 3", "/path3"
-              .nav.row.pull-right style='height: 100%;' 
-                .span1
-                  = button_to current_user, method: :get, class: "btn", form_class: 'navbar-form' do
-                    | Account
-                .span1
-                  = button_to 'SignOut', destroy_user_session_path, method: :delete, class: "btn", form_class: 'navbar-form'
-            
-    #contents.container-fluid
 
-      .row-fluid
-        - if user_signed_in?
-          .span3
-            .well.sidebar-nav
-              = link_to image_tag('logo.png'), root_path
+    - if user_signed_in?
+      #wrapper
+        #side-menu
+          .menu-contents
+            .sidebar-nav
+              = link_to image_tag('logo.png'), root_path, id: "logo"
               ul.nav.nav-list
-                li.nav-header Sidebar
-                li= link_to "Link 1", "/path1"
-                li= link_to "Link 2", "/path2"
-                li= link_to "Link 3", "/path3"
-          .span9
-            = bootstrap_flash
-            = yield
-        - else
-          .container
-            = yield
+                li= link_to current_user do
+                  i.icon-user.icon-2x
+                  | &nbsp;&nbsp; Account
+                li= link_to destroy_user_session_path, method: :delete do
+                  i.icon-signout.icon-2x
+                  | &nbsp;&nbsp;Sign out
+        #contents.container-fluid
+          .row-fluid
+            .span12 style="overflow: scroll;"
+              = yield
+    - else
+      #contents.container-fluid style="height:100%"
+        .container
+          = yield

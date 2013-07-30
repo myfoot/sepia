@@ -1,0 +1,32 @@
+$side-menu-width: 150px;
+
+#wrapper {
+    padding-left: $side-menu-width - 100;
+
+    #side-menu {
+        width: $side-menu-width - 100;
+        left: 0;
+        position: fixed;
+        overflow: auto;
+        top: 0;
+        bottom: 0;
+        background-color: #333;
+        
+        .menu-contents {
+            width: $side-menu-width;
+            .nav-list {
+                > li > a {
+                    text-shadow: none;
+                    color: #FFF;
+                    
+                    &:hover {
+                        color: #333;
+                    }
+                }
+                .nav-header {
+                    text-shadow: none;
+                }
+            }
+        }
+    }
+}
