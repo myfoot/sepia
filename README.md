@@ -80,7 +80,7 @@ $ rspec
 $ redis-server
 ```
 
-### if you want to start with WEBrik
+### if you want to start with WEBrick
 
 ```shell
 $ bundle exec rails s
