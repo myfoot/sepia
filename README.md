@@ -7,6 +7,7 @@
 - `Ruby` : 2.0
 - `Rails` : 4.0.0
 - `MySQL` : 5.6
+- `Redis` : 2.6.14
 
 ## Configuration
 
@@ -20,6 +21,9 @@ social:
     consumer_key: 'xxx'
     consumer_secret: 'xxx'
   facebook:
+    consumer_key: 'xxx'
+    consumer_secret: 'xxx'
+  google:
     consumer_key: 'xxx'
     consumer_secret: 'xxx'
 ```
@@ -70,7 +74,13 @@ $ rspec
 
 ## How to run the `Sepia`
 
-### if you want to start with WEBrik
+### Start the redis
+
+```shell
+$ redis-server
+```
+
+### if you want to start with WEBrick
 
 ```shell
 $ bundle exec rails s
