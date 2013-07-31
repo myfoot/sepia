@@ -1,7 +1,14 @@
 $side-menu-width: 150px;
 
+body {
+    background-color: #EEE;
+}
+
 #wrapper {
     padding-left: $side-menu-width - 100;
+
+    #contents {
+    }
 
     #side-menu {
         width: $side-menu-width - 100;
