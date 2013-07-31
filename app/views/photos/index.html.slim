@@ -1,18 +1,12 @@
-h1 Photos#index
+h1 
+  i.icon-picture
+  |  Your Photos
 
-div style='padding: 10px'
-  - @photos.each_slice(3) do |photos|
+#photos
+  - @photos.each_slice(4) do |photos|
     div.row
-      div.span4
-        -  if photos[0]
-          div = image_tag(photos[0].thumbnail_url)
-          p == photos[0].message
-      div.span4
-        -  if photos[1]
-          div = image_tag(photos[1].thumbnail_url)
-          p == photos[1].message
-      div.span4
-        -  if photos[2]
-          div = image_tag(photos[2].thumbnail_url)
-          p == photos[2].message
+      - photos.each do |photo|
+        div.span3.photo
+          div = image_tag(photo.thumbnail_url)
+          p == photo.message
           
