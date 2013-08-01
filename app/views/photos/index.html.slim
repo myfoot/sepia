@@ -7,6 +7,8 @@ h1
     div.row
       - photos.each do |photo|
         div.span3.photo
-          div = image_tag(photo.thumbnail_url)
+          div = image_tag('loader.gif', class: 'img-photo', 'data-src' => photo.thumbnail_url)
           p == photo.message
           
+script
+  | $('img.img-photo').unveil(0);
