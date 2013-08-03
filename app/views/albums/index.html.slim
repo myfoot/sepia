@@ -1,0 +1,42 @@
+ruby:
+  current_page = (params[:page].try(:to_i) || 1)
+h1 
+  i.icon-film
+  |  Your Albums
+
+button.btn.btn-primary data-toggle="modal" href="#create-form"
+  i.icon-plus
+
+#albums
+  ul
+    - @albums.each do |album|
+        li= link_to album.name, url_for(album)
+
+#create-form.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close data-dismiss="modal" aria-hidden="true"
+          | &times;
+        h4
+          | New Album
+      .modal-body
+        #errors
+        = form_for Album.new, class: "form-horizontal" do |f|
+          .form-group
+            = f.label :name, class: "control-label span2"
+            .span10
+              = f.text_field :name, class: "form-control", placeholder: "your album's name..."
+      .modal-footer
+        a#create-submit.btn.btn-primary href="javaScript:void(0)"
+          | Save
+
+= javascript_include_tag "albums"
+
+script#error-msg-template type="text/template"
+  .alert.alert-danger
+    button.close data-dismiss="alert"
+      | &times;
+    strong
+      | %{ key } : 
+    | %{ message }
