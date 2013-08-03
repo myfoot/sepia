@@ -37,13 +37,18 @@ gem 'slim-rails'
 gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
+gem 'underscore-rails'
 
 # for background job
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 
+# xml parser
 gem 'nokogiri'
+
+# for paginate
+gem 'kaminari'
 
 group :development, :test do
   gem 'rspec-rails'

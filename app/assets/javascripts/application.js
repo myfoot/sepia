@@ -15,4 +15,12 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require jquery.unveil.min
+//= require underscore
+//= stub photos
 //= require_tree .
+
+_.templateSettings = {
+    evaluate:    /\%\{=(.+?)\}/g,
+    interpolate: /\%\{(.+?)\}/g,
+    escape:      /\%\{-(.+?)\}/g
+};

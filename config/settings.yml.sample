@@ -1,3 +1,5 @@
+photos:
+  per_page: 50
 social:
   twitter:
     consumer_key: ''
