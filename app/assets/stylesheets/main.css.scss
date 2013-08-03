@@ -21,6 +21,7 @@ html, body {
         top: 0;
         bottom: 0;
         background-color: #333;
+        z-index: 9999;
 
         .menu-contents {
             width: $side-menu-width;
