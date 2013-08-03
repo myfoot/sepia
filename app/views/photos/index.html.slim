@@ -3,7 +3,7 @@ h1
   |  Your Photos
 
 #photos
-  ul.polaroids
+  ul#polaroids
     - @photos.each do |photo|
         li
           span title=photo.message = image_tag('loader.gif', class: 'img-photo', 'data-src' => photo.thumbnail_url)
