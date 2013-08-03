@@ -60,7 +60,7 @@ module Clients
                           provider: self.provider,
                           platform_id: google_photo.id,
                           format: google_photo.format,
-                          message: '',
+                          message: google_photo.description,
                           width: google_photo.width,
                           height: google_photo.height,
                           posted_at:  google_photo.published_at,
@@ -100,6 +100,11 @@ module Clients
       end
       def summary
         @title ||= @entry.xpath('xmlns:summary').text
+      end
+      def description
+        # TODO 画像に文字列が含まれているとその文字列が入ってくる(OCR解析されている？)
+        # TODO 長すぎる文字列の場合に登録時にlengthエラー
+        @description ||= @entry.xpath('media:group/media:description').text
       end
       def fullsize_url
         @fullsize_url ||= @entry.xpath('media:group/media:content').attr('url').value
