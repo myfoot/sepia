@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Photo::TwitPic do
   let(:id){ "hogefoobar" }
-  let(:photo){ Photo::TwitPic.new(platform: :twitter, platform_id: id, format: "png", posted_at: Time.now) }
+  let(:photo){ Photo::TwitPic.new(provider: :twitter, platform_id: id, format: "png", posted_at: Time.now) }
   
   describe "#fullsize_url" do
     subject{ photo.fullsize_url }
