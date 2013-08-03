@@ -8,12 +8,12 @@
 }
 
 #photos {
-    .polaroids {
+    #polaroids {
         width: 80%;
         margin: 0 0 18px -10px;
 
         li {
-            display: inline;
+            display: inline-block;
 
             &:nth-child(even) span {
                 -webkit-transform: rotate(2deg);
@@ -79,7 +79,8 @@
 
                .img-photo {
                    display: block;
-                   width: 190px;
+                   max-width: 190px;
+                   max-height: 190px;
                    margin-bottom: 12px;
                }
             }
