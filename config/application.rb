@@ -28,5 +28,6 @@ module Sepia
     #   :db => 0,
     #   :namespace => "sepia:cache"
     # }
+    config.active_record.whitelist_attributes = false
   end
 end
