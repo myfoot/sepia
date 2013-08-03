@@ -11,8 +11,8 @@ describe PhotoCrawler do
 
   let(:photo_crawler) { PhotoCrawler.new }
   let(:client) { Clients::Social::TwitPic.new(access_token) }
-  let(:exist_photo) { Photo.new(platform: :twitter, platform_id: "10000", format: "png", posted_at: Time.now - 2.days) }
-  let(:photo) { Photo::TwitPic.new(user_id: user.id, provider: :twitter, platform: :twitter, platform_id: "12000", format: "png", posted_at: Time.now) }
+  let(:exist_photo) { Photo.new(provider: :twitter, platform_id: "10000", format: "png", posted_at: Time.now - 2.days) }
+  let(:photo) { Photo::TwitPic.new(user_id: user.id, provider: :twitter, platform_id: "12000", format: "png", posted_at: Time.now) }
 
   before do
     client
