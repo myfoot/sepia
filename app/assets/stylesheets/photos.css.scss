@@ -1,8 +1,10 @@
+@import "compass/reset";
+@import "compass";
+@import "compass/utilities/text/ellipsis";
+
 @mixin zoom-in {
-    -webkit-transform: scale(1.25);
-    -moz-transform: scale(1.25);
-    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.5);
-    -moz-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+    @include scale(1.25);
+    @include box-shadow(rgba(0,0,0,.5) 0 3px 6px);
     position: relative;
     z-index: 5;
 }
@@ -15,42 +17,30 @@ $polaroid-width: 190px;
         margin: 0 0 18px -10px;
 
         li {
-            display: inline-block;
+            @include inline-block;
 
             &:nth-child(even) span {
-                -webkit-transform: rotate(2deg);
-                -moz-transform: rotate(2deg);
-                &:hover { @include zoom-in; }
+                @include rotate(2deg);
             }
 
             &:nth-child(3n) span {
-                -webkit-transform: none;
-                position: relative;
+                @include transform(none);
                 top: -5px;
-                -moz-transform: none;
-                &:hover { @include zoom-in; }
             }
 
             &:nth-child(5n) span {
-                -webkit-transform: rotate(5deg);
-                position: relative;
+                @include rotate(5deg);
                 right: 5px;
-                -moz-transform: rotate(5deg);
-                &:hover { @include zoom-in; }
             }
 
             &:nth-child(8n) span {
-                position: relative;
                 right: 5px;
                 top: 8px;
-                &:hover { @include zoom-in; }
             }
 
             &:nth-child(11n) span {
-                position: relative;
                 left: -5px;
                 top: 3px;
-                &:hover { @include zoom-in; }
             }
 
             span {
@@ -66,16 +56,10 @@ $polaroid-width: 190px;
                color: #333;
                font-size: 18px;
 
-               white-space: nowrap;
-               overflow: hidden;
-               text-overflow: ellipsis;
-               -o-text-overflow: ellipsis; /* Opera9,10対応 */
-
-               -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
-               -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);
-               -webkit-transform: rotate(-2deg);
-               -webkit-transition: -webkit-transform .15s linear;
-               -moz-transform: rotate(-2deg);
+               @include ellipsis;
+               @include box-shadow(rgba(0,0,0,.25) 0 3px 6px);
+               @include rotate(-2deg);
+               @include transition(transform .15s linear);
 
                &:hover {
                    @include zoom-in;
