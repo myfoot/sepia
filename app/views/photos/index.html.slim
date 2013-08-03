@@ -1,14 +1,12 @@
-h1 
+h1
   i.icon-picture
   |  Your Photos
 
 #photos
-  - @photos.each_slice(4) do |photos|
-    div.row
-      - photos.each do |photo|
-        div.span3.photo
-          div = image_tag('loader.gif', class: 'img-photo', 'data-src' => photo.thumbnail_url)
-          p == photo.message
-          
+  ul.polaroids
+    - @photos.each do |photo|
+        li
+          span title=photo.message = image_tag('loader.gif', class: 'img-photo', 'data-src' => photo.thumbnail_url)
+
 script
   | $('img.img-photo').unveil(0);

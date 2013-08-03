@@ -1,14 +1,88 @@
+@mixin zoom-in {
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+    position: relative;
+    z-index: 5;
+}
+
 #photos {
-    .row {
-        margin: 0;
-    }
-    .photo {
-        background-color: #fff;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        padding: 5px;
-        height: 200px;
-        text-overflow: ellipsis;
-        box-shadow: 2px 5px 15px #777777;
+    .polaroids {
+        width: 80%;
+        margin: 0 0 18px -10px;
+
+        li {
+            display: inline;
+
+            &:nth-child(even) span {
+                -webkit-transform: rotate(2deg);
+                -moz-transform: rotate(2deg);
+                &:hover { @include zoom-in; }
+            }
+
+            &:nth-child(3n) span {
+                -webkit-transform: none;
+                position: relative;
+                top: -5px;
+                -moz-transform: none;
+                &:hover { @include zoom-in; }
+            }
+
+            &:nth-child(5n) span {
+                -webkit-transform: rotate(5deg);
+                position: relative;
+                right: 5px;
+                -moz-transform: rotate(5deg);
+                &:hover { @include zoom-in; }
+            }
+
+            &:nth-child(8n) span {
+                position: relative;
+                right: 5px;
+                top: 8px;
+                &:hover { @include zoom-in; }
+            }
+
+            &:nth-child(11n) span {
+                position: relative;
+                left: -5px;
+                top: 3px;
+                &:hover { @include zoom-in; }
+            }
+
+            span {
+               background: #fff;
+               display: inline;
+               float: left;
+               margin: 0 0 27px 30px;
+               width: auto;
+               padding: 10px 10px 15px;
+               text-align: center;
+               font-family: "Marker Felt", sans-serif;
+               text-decoration: none;
+               color: #333;
+               font-size: 18px;
+               -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+               -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+               -webkit-transform: rotate(-2deg);
+               -webkit-transition: -webkit-transform .15s linear;
+               -moz-transform: rotate(-2deg);
+
+               &:hover {
+                   @include zoom-in;
+               }
+
+               &:after {
+                   content: attr(title);
+               }
+
+               .img-photo {
+                   display: block;
+                   width: 190px;
+                   margin-bottom: 12px;
+               }
+            }
+        }
     }
 }
