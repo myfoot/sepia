@@ -9,7 +9,7 @@ h1
   ul#polaroids
     - @photos.each do |photo|
         li data-page="#{current_page}"
-          span title=photo.message = image_tag('loader.gif', class: 'img-photo', 'data-src' => photo.thumbnail_url)
+          span title=photo.message.html_safe = image_tag('loader.gif', class: 'img-photo', 'data-src' => photo.thumbnail_url)
 - if per_page * current_page < @all_count
   = link_to 'Load more...', 'javaScript:void(0)', id: "load-link", :'data-current-page' => "#{current_page}", :'data-url' => "#{photos_path(format: :json)}", class: "btn btn-primary btn-large btn-block"
 
