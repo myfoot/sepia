@@ -16,8 +16,8 @@
 //= require turbolinks
 //= require jquery.unveil.min
 //= require underscore
-//= stub photos
-//= require_tree .
+//= require main
+//= require album
 
 _.templateSettings = {
     evaluate:    /\%\{=(.+?)\}/g,

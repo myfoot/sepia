@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :access_tokens
   has_many :photos
+  has_many :albums
 
   validates :name, presence: true
 

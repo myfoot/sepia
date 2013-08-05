@@ -30,8 +30,11 @@ html(lang="en")
               = link_to image_tag('logo.png'), root_path, id: "logo"
               ul.nav.nav-list
                 li= link_to root_path do
-                  i.icon-picture.icon-2x
+                  i.icon-picture.icon-2x.icon-square
                   | &nbsp; Photos
+                li= link_to albums_path do
+                  i.icon-film.icon-2x.icon-square
+                  | &nbsp; Albums
                 li= link_to current_user do
                   i.icon-user.icon-2x
                   | &nbsp;&nbsp; Account
