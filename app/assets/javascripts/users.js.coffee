@@ -7,7 +7,6 @@ class User
     @id = id
   update: (name, email) =>
     $.ajax(type: 'PUT' , url: "/users/#{@id}.json", data: {user: { name: name, email: email }}, dataType: 'json')
-
 this.User = User
 
 this.UserActions = {

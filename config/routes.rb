@@ -2,8 +2,8 @@ Sepia::Application.routes.draw do
   root to: 'photos#index'
 
   resources :photos, only: [:index]
-
-  resources :users, only: [:show, :update]
+  resources :albums, only: [:index, :show, :create, :update, :destroy]
+  resources :users,  only: [:show, :update]
 
   # for devise
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

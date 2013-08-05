@@ -2,7 +2,7 @@ class Photo < ActiveRecord::Base
   attr_accessible :user_id, :provider, :platform_id, :format, :message, :width, :height, :posted_at
 
   belongs_to :user
-  has_many :albums_photos, class_name: 'AlbumsPhotos', inverse_of: :photo
+  has_many :albums_photos, class_name: 'AlbumsPhotos', inverse_of: :photo, dependent: :destroy
   has_many :albums, through: :albums_photos
 
   validates :user_id, presence: true
