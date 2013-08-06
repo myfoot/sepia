@@ -8,6 +8,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       uid: auth.uid,
       token: auth.credentials.token
     }
+    scheduled_crawl(:facebook, Clients::Social::Facebook)
   end
 
   def twitter
