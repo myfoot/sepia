@@ -4,6 +4,7 @@ module Clients
       attr_reader :user_id
       RESOURCE_URL = "http://api.twitpic.com/2/users/show.json"
       MAX_PER_PAGE = 20
+      PROVIDER = :twitter
 
       def initialize access_token
         @user_name = access_token.name
@@ -11,7 +12,7 @@ module Clients
       end
 
       def provider
-        :twitter
+        PROVIDER
       end
 
       def photos last_date=nil, page=1

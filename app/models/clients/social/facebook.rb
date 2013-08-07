@@ -5,6 +5,7 @@ module Clients
   module Social
     class Facebook
       attr_reader :client, :user_id
+      PROVIDER = :facebook
 
       def initialize access_token
         @access_token = access_token
@@ -14,7 +15,7 @@ module Clients
       end
 
       def provider
-        :facebook
+        PROVIDER
       end
 
       def photos last_date=nil, page=1

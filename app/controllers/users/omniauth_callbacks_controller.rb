@@ -9,7 +9,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       token: auth.credentials.token,
       expired_at: Time.at(auth.credentials.expires_at)
     }
-    scheduled_crawl(:facebook, Clients::Social::Facebook)
+    scheduled_crawl_all
   end
 
   def twitter
@@ -20,7 +20,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       token: auth.credentials.token,
       secret: auth.credentials.secret
     }
-    scheduled_crawl(:twitter, Clients::Social::TwitPic)
+    scheduled_crawl_all
   end
 
   def google_oauth2
@@ -33,7 +33,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       secret: auth.credentials.secret,
       expired_at: Time.at(auth.credentials.expires_at)
     }
-    scheduled_crawl(:google_oauth2, Clients::Social::Google)
+    scheduled_crawl_all
   end
 
   private
@@ -59,9 +59,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     sign_in_and_redirect @user, :event => :authentication
   end
 
-  def scheduled_crawl provider, client_klass
-    @user.access_tokens.where(provider: provider).select(:id).each{|access_token|
-      PhotoCrawler.perform_async(client_klass.to_s, access_token.id)
+  def scheduled_crawl_all
+    @user.access_tokens.not_expired.select(:id, :provider).each{|access_token|
+      client_klass = Clients::Social.find_class(access_token.provider)
+      PhotoCrawler.perform_async(client_klass.to_s, access_token.id) if client_klass
     }
   end
 end

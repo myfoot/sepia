@@ -7,6 +7,12 @@ class AccessToken < ActiveRecord::Base
   validates :provider, presence: true
   validates :uid, presence: true, uniqueness: {scope: :provider}
 
+  scope :not_expired, -> {
+    arel = self.arel_table
+    where( arel[:expired_at].eq(nil)
+             .or( arel[:expired_at].gt(Time.now) ) )
+  }
+
   PROVIDERS.each {|provider|
     define_method("#{provider}?"){ self.provider.to_sym == provider }
   }
