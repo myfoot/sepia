@@ -1,7 +1,7 @@
 ruby:
   per_page = Settings.photos.per_page
   current_page = (params[:page].try(:to_i) || 1)
-h1 
+h1
   i.icon-picture
   |  Your Photos
 
@@ -9,7 +9,9 @@ h1
   ul#polaroids
     - @photos.each do |photo|
         li data-page="#{current_page}"
-          span title=photo.message.html_safe = image_tag('loader.gif', class: 'img-photo', 'data-src' => photo.thumbnail_url)
+          div class="polaroid" data-original-title=format_time(photo.posted_at) data-content=photo.message.html_safe
+            = image_tag('loader.gif', class: 'img-photo', 'data-src' => photo.thumbnail_url)
+            span = photo.message.html_safe
 - if per_page * current_page < @all_count
   div#more
     = link_to 'Show more results', 'javaScript:void(0)', id: "load-link", :'data-current-page' => "#{current_page}", :'data-url' => "#{photos_path(format: :json)}", class: "btn"
@@ -17,6 +19,7 @@ h1
 = javascript_include_tag "photos"
 
 script#photo-template type="text/template"
-  li 
-    span title='%{ message }'
+  li
+    div class="polaroid" data-original-title="%{ posted_at }" data-content="%{ message }"
       = image_tag('loader.gif', class: 'img-photo', :'data-src' => '%{ url }', :'data-page' => '%{ page }')
+      span = '%{ message }'
