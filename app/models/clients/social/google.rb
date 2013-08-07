@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'oauth2'
 require 'nokogiri'
 
@@ -9,6 +10,7 @@ module Clients
       TOKEN_URL = 'https://accounts.google.com/o/oauth2/token'
       MAX_PER_PAGE = 200
       MAX_COUNT = 1000
+      PROVIDER = :google_oauth2
 
       def initialize access_token
         @access_token = access_token
@@ -24,7 +26,7 @@ module Clients
       end
 
       def provider
-        :google_oauth2
+        PROVIDER
       end
 
       def refresh_token!
