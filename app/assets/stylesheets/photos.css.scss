@@ -18,31 +18,31 @@ $polaroid-width: 190px;
         li {
             @include inline-block;
 
-            &:nth-child(even) span {
+            &:nth-child(even) .polaroid {
                 @include rotate(2deg);
             }
 
-            &:nth-child(3n) span {
+            &:nth-child(3n) .polaroid {
                 @include transform(none);
                 top: -5px;
             }
 
-            &:nth-child(5n) span {
+            &:nth-child(5n) .polaroid {
                 @include rotate(5deg);
                 right: 5px;
             }
 
-            &:nth-child(8n) span {
+            &:nth-child(8n) .polaroid {
                 right: 5px;
                 top: 8px;
             }
 
-            &:nth-child(11n) span {
+            &:nth-child(11n) .polaroid {
                 left: -5px;
                 top: 3px;
             }
 
-            span {
+            .polaroid {
                background: #fff;
                display: inline;
                float: left;
@@ -61,10 +61,6 @@ $polaroid-width: 190px;
 
                &:hover {
                    @include zoom-in;
-               }
-
-               &:after {
-                   content: attr(title);
                }
 
                .img-photo {
