@@ -43,32 +43,32 @@ $polaroid-width: 190px;
             }
 
             .polaroid {
-               background: #fff;
-               display: inline;
-               float: left;
-               margin: 0 0 27px 30px;
-               max-width: $polaroid-width;
-               padding: 10px 10px 15px;
-               text-align: center;
-               text-decoration: none;
-               color: #333;
-               font-size: 14px;
+                background: #fff;
+                display: inline;
+                float: left;
+                margin: 0 0 27px 30px;
+                max-width: $polaroid-width;
+                padding: 10px 10px 15px;
+                text-align: center;
+                text-decoration: none;
+                color: #333;
+                font-size: 14px;
 
-               @include ellipsis;
-               @include box-shadow(rgba(0,0,0,.25) 0 3px 6px);
-               @include rotate(-2deg);
-               @include transition(transform .15s linear);
+                @include ellipsis;
+                @include box-shadow(rgba(0,0,0,.25) 0 3px 6px);
+                @include rotate(-2deg);
+                @include transition(transform .15s linear);
 
-               &:hover {
-                   @include zoom-in;
-               }
+                &:hover {
+                    @include zoom-in;
+                }
 
-               .img-photo {
-                   display: block;
-                   max-width: $polaroid-width;
-                   max-height: 190px;
-                   margin-bottom: 12px;
-               }
+                .img-photo {
+                    display: block;
+                    max-width: $polaroid-width;
+                    max-height: 190px;
+                    margin-bottom: 12px;
+                }
             }
         }
     }
