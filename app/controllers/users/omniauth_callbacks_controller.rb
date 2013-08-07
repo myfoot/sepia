@@ -6,7 +6,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       name: auth.info.nickname,
       email: auth.info.email,
       uid: auth.uid,
-      token: auth.credentials.token
+      token: auth.credentials.token,
+      expired_at: Time.at(auth.credentials.expires_at)
     }
     scheduled_crawl(:facebook, Clients::Social::Facebook)
   end
@@ -29,7 +30,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       uid: auth.uid,
       token: auth.credentials.token,
       refresh_token: auth.credentials.refresh_token,
-      secret: auth.credentials.secret
+      secret: auth.credentials.secret,
+      expired_at: Time.at(auth.credentials.expires_at)
     }
     scheduled_crawl(:google_oauth2, Clients::Social::Google)
   end

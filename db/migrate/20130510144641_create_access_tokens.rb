@@ -8,6 +8,7 @@ class CreateAccessTokens < ActiveRecord::Migration
       t.string :token
       t.string :refresh_token
       t.string :secret
+      t.datetime :expired_at
       t.timestamps
     end
   end
