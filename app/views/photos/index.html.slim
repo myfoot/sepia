@@ -12,7 +12,7 @@ h1
           span title=photo.message.html_safe = image_tag('loader.gif', class: 'img-photo', 'data-src' => photo.thumbnail_url)
 - if per_page * current_page < @all_count
   div#more
-    = link_to 'Show more results', 'javaScript:void(0)', id: "load-link", :'data-current-page' => "#{current_page}", :'data-url' => "#{photos_path(format: :json)}", class: "btn btn-large"
+    = link_to 'Show more results', 'javaScript:void(0)', id: "load-link", :'data-current-page' => "#{current_page}", :'data-url' => "#{photos_path(format: :json)}", class: "btn"
 
 = javascript_include_tag "photos"
 
