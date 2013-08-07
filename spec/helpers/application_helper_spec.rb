@@ -2,6 +2,15 @@ require 'spec_helper'
 
 describe ApplicationHelper do
   describe "#format_time" do
+    before(:each) do
+      @timezone_origin = ENV['TZ']
+      ENV['TZ'] = 'Asia/Tokyo'
+    end
+
+    after(:each) do
+      ENV['TZ'] = @timezone_origin
+    end
+
     describe "日付文字列" do
       it "ローカル時刻に合わせてフォーマットされる" do
         expect(helper.format_time("2013-08-03 03:22:29 UTC")).to eq("2013-08-03 12:22:29")
