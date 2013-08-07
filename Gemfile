@@ -52,6 +52,9 @@ gem 'nokogiri'
 # for paginate
 gem 'kaminari'
 
+# for clients
+gem 'koala', "~> 1.7.0rc1" # facebook
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'spork'
