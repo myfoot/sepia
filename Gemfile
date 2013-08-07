@@ -33,6 +33,9 @@ gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'protected_attributes'
 
+# for twitter
+gem 'twitter'
+
 #for view
 gem 'slim-rails'
 gem "therubyracer"
