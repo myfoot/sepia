@@ -20,4 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  twitter: Twitter
+  facebook: Facebook
+  google_oauth2: Google
+  

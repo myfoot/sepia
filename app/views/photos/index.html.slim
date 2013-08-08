@@ -1,6 +1,14 @@
 ruby:
   per_page = Settings.photos.per_page
   current_page = (params[:page].try(:to_i) || 1)
+
+- current_user.access_tokens.expired.each do |access_token|
+  .alert.alert-error.fade.in
+    button.close type="button" data-dismiss="alert"
+      | &times;
+    strong= "#{ t(access_token.provider) } Token Expired!!"
+    | &nbsp; please 
+    = link_to "refresh token", user_omniauth_authorize_path(access_token.provider)
 h1 
   i.icon-picture
   |  Your Photos
@@ -20,3 +28,5 @@ script#photo-template type="text/template"
   li 
     span title='%{ message }'
       = image_tag('loader.gif', class: 'img-photo', :'data-src' => '%{ url }', :'data-page' => '%{ page }')
+script
+  | $('.alert').alert();

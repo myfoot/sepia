@@ -21,13 +21,13 @@ h1 Your Status
       div style="margin-bottom: 10px" 
       - if token = tokens[provider]
         dt
-          = token.provider.capitalize
+          = t(token.provider)
         dd
           = (token.twitter? ? "@" : "") + token.name
       - else
         dt
-          = provider.capitalize
+          = t(provider)
         dd
-          = button_to "Add Account", user_omniauth_authorize_path(provider, origin: polymorphic_url(@user), user_id: current_user.id), class: "btn btn-primary btn-small"
+          = button_to "Connect", user_omniauth_authorize_path(provider, origin: polymorphic_url(@user), user_id: current_user.id), class: "btn btn-primary btn-small"
 script
   | UserActions.bindUpdate(#{current_user.id}, "user_name", "user_email");
