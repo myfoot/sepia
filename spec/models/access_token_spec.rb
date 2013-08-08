@@ -8,15 +8,26 @@ describe AccessToken do
   let(:access_token_google) { AccessToken.create(user_id: user.id, token: 'aaa', secret: 'bbb', provider: :google_oauth2, uid: "12345678901", expired_at: Time.parse('2013-08-20'))}
 
   describe "scopes" do
+    before do
+      access_token
+      access_token_fb
+      access_token_google
+    end
+
     describe "not_expired" do
       before do
-        access_token
-        access_token_fb
-        access_token_google
         Time.stub(:now).and_return(Time.parse('2013-08-15'))
       end
       subject{ AccessToken.not_expired.to_a }
       it { should =~ [access_token, access_token_google] }
+    end
+
+    describe "expired" do
+      before do
+        Time.stub(:now).and_return(Time.parse('2013-08-15'))
+      end
+      subject{ AccessToken.expired.to_a }
+      it { should =~ [access_token_fb] }
     end
   end
 

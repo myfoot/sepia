@@ -12,6 +12,11 @@ class AccessToken < ActiveRecord::Base
     where( arel[:expired_at].eq(nil)
              .or( arel[:expired_at].gt(Time.now) ) )
   }
+  scope :expired, -> {
+    arel = self.arel_table
+    where( arel[:expired_at].not_eq(nil)
+             .and( arel[:expired_at].lteq(Time.now) ) )
+  }
 
   PROVIDERS.each {|provider|
     define_method("#{provider}?"){ self.provider.to_sym == provider }
