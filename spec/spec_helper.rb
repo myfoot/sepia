@@ -39,4 +39,13 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  config.before do
+    @timezone_origin = ENV['TZ']
+    ENV['TZ'] = 'Asia/Tokyo'
+  end
+
+  config.after do
+    ENV['TZ'] = @timezone_origin
+  end
 end
