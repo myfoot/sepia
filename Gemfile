@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-gem 'mysql2'
 # 依存先のバージョンがぶつかってる
 # gem 'redis-store', '1.1.3'
 gem 'redis-store', github: "bricker/redis-store"
@@ -55,7 +54,15 @@ gem 'kaminari'
 # for clients
 gem 'koala', "~> 1.7.0rc1" # facebook
 
+ruby "2.0.0", group: [:production]
+gem 'mysql2', group: [:production, :development]
+
+group :test do
+  gem 'sqlite3'
+end
+
 group :development, :test do
+
   gem 'rspec-rails'
   gem 'spork'
 
@@ -66,10 +73,6 @@ end
 
 group :doc do
   gem 'sdoc', require: false
-end
-
-group :test do
-  gem 'sqlite3'
 end
 
 # Use ActiveModel has_secure_password

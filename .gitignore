@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+vendor
 
 # Ignore cache
 /.sass-cache
@@ -22,12 +23,12 @@
 /tmp
 
 #for Gemfile
-Gemfile.lock
+#Gemfile.lock
 
 #for settings
 config/settings.yml
-config/settings/development.yml
-config/settings/production.yml
+#config/settings/development.yml
+#config/settings/production.yml
 config/settings/test.yml
 config/settings.local.yml
 config/settings/*.local.yml
