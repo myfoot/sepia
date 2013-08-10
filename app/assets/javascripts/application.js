@@ -18,6 +18,7 @@
 //= require underscore
 //= require main
 //= require album
+//= require bootstrap
 
 _.templateSettings = {
     evaluate:    /\%\{=(.+?)\}/g,

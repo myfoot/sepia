@@ -29,5 +29,8 @@ h1 Your Status
           = t(provider)
         dd
           = button_to "Connect", user_omniauth_authorize_path(provider, origin: polymorphic_url(@user), user_id: current_user.id), class: "btn btn-primary btn-small"
+
+= javascript_include_tag "users"
+
 script
   | UserActions.bindUpdate(#{current_user.id}, "user_name", "user_email");
