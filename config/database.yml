@@ -19,5 +19,4 @@ production:
   pool: 5
   username: root
   password: password
-  host: localhost
   encoding: utf8
