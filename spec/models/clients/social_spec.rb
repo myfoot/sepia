@@ -6,7 +6,7 @@ describe Clients::Social do
   describe ".find_class" do
     context :twitter do
       subject { Clients::Social.find_class(:twitter) }
-      it { should be_== Clients::Social::TwitPic }
+      it { should be_== Clients::Social::TwitterClients }
     end
     context :facebook do
       subject { Clients::Social.find_class(:facebook) }
