@@ -40,12 +40,7 @@ module Clients
             break
           end
 
-          # max_idで指定したツイートも結果に含まれてしまう。
-          # そのツイートが重複して登録されてしまうので除外して処理する
-          # ただし初回(max_idがnil)の場合は除外しない
-          target_tweets = max_id ? all_tweets[1..-1] : all_tweets
-
-          img_tweets = fetch_img_tweets(target_tweets, last_date)
+          img_tweets = fetch_img_tweets(target_tweets(all_tweets, max_id), last_date)
           photos.concat(img_tweets[:data])
           break if all_tweets.size < MAX_PER_PAGE || img_tweets[:finish]
           max_id = all_tweets.last.id
@@ -69,6 +64,12 @@ module Clients
                               )
       end
 
+      # max_idを指定した場合そのツイートも結果に含まれてしまうので、
+      # 重複して登録されないようにする
+      def target_tweets tweets, max_id
+        max_id ? tweets[1..-1] : tweets
+      end
+
       def fetch_img_tweets tweets, last_date
         img_tweets = {finish: false, data: []}
         img_tweets[:data] = tweets.inject([]) { |acc, tweet|
@@ -77,7 +78,6 @@ module Clients
           end
           if !last_date || last_date.localtime < tweet.created_at
             tweet.media.each { |image|
-              # 非公式RTやQTの場合における他人の画像を除外し、自分の画像だけに限定する
               acc << photo(tweet, image) if image.expanded_url.include?("http://twitter.com/#{@user_name}/status")
             }
           else
