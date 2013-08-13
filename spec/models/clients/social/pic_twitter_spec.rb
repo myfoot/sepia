@@ -12,7 +12,7 @@ describe Clients::Social::PicTwitter do
     Twitter::Tweet.new(default.merge(entities))
   end
 
-  def make_img_tweet(media_id, user_name="my_user", created_at: "Tue Aug 06 03:59:24 +0000 2013")
+  def make_img_tweet(media_id, user_name: "my_user", created_at: "Tue Aug 06 03:59:24 +0000 2013")
     make_tweet({
       entities: {
         media: [{
@@ -30,10 +30,12 @@ describe Clients::Social::PicTwitter do
   let(:client) { Clients::Social::PicTwitter.new(token) }
   let(:img_tweet) { make_img_tweet(10) }
   let(:mixed_tweet) {
-    [make_tweet,
-     make_img_tweet(10, "fake_user"),
+    [
+     make_tweet,
+     make_img_tweet(10, user_name: "fake_user"),
      make_img_tweet(20),
-     make_img_tweet(30, "dummy_user")]
+     make_img_tweet(30, user_name: "dummy_user")
+    ]
   }
   let(:max_tweets) {
     Clients::Social::PicTwitter::MAX_PER_PAGE.times.map{|i|
