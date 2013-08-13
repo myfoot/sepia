@@ -72,6 +72,13 @@ group :development, :test do
   gem 'guard'
   gem 'guard-spork'
   gem 'guard-rspec'
+
+  # for debug
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'debugger'
+  gem 'pry'
+  gem 'pry-rails'
 end
 
 group :doc do
@@ -86,6 +93,3 @@ end
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
