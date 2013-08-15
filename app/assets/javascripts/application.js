@@ -19,6 +19,7 @@
 //= require main
 //= require album
 //= require bootstrap
+//= require trunk8.min
 
 _.templateSettings = {
     evaluate:    /\%\{=(.+?)\}/g,
