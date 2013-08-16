@@ -25,7 +25,8 @@ Sepia::Application.configure do
   config.serve_static_assets = true
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  config.assets.compress = true
+  config.assets.js_compressor = Uglifier.new(comments: :copyright)
   config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
