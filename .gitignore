@@ -31,5 +31,6 @@ config/settings.yml
 #config/settings/production.yml
 config/settings/test.yml
 config/settings.local.yml
+config/settings.beta.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
