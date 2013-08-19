@@ -57,7 +57,6 @@ gem 'kaminari'
 # for clients
 gem 'koala', "~> 1.7.0rc1" # facebook
 
-ruby "2.0.0", group: [:production]
 gem 'mysql2', group: [:production, :development]
 
 group :test do
@@ -89,7 +88,12 @@ end
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn', group: [:development, :production]
 
 # Use Capistrano for deployment
-# gem 'capistrano', group: :development
+group :development, :deployment do
+  gem 'capistrano'
+  gem 'capistrano_colors'
+  gem 'capistrano-ext'
+  gem 'rvm-capistrano'
+end
