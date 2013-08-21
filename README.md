@@ -72,7 +72,7 @@ $ rake db:migrate
 $ rspec
 ```
 
-## How to run the `Sepia`
+## How to run the `Sepia` for development
 
 ### Start the redis
 
@@ -90,4 +90,19 @@ $ bundle exec rails s
 
 ```shell
 $ bundle exec sidekiq
+```
+
+## How to deploy the `Sepia` for production
+
+### create `config/settings.beta.yml`
+
+copy `config/settings.yml.sample` to `config/settings.beta.yml`
+and write the key/secret to `config/settings.beta.yml`.
+
+### deploy via `capistrano`
+
+```shell
+$ bundle exec cap deploy:setup
+$ bundle exec cap deploy:cold
+$ bundle exec cap deploy:migrate
 ```
