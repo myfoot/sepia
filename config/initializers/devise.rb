@@ -94,7 +94,7 @@ Devise.setup do |config|
 
   # If true, uses the password salt as remember token. This should be turned
   # to false if you are not using database authenticatable.
-  config.use_salt_as_remember_token = true
+  # config.use_salt_as_remember_token = true
 
   # Options to be passed to the created cookie. For instance, you can set
   # :secure => true in order to force SSL only cookies.
@@ -208,30 +208,10 @@ Devise.setup do |config|
   # end
 
   # for devise
-  unless Rails.env.production?
-    Devise.setup do |config|
-      OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
-      config.omniauth :facebook, Settings.social.facebook.consumer_key, Settings.social.facebook.consumer_secret, :scope => 'email,user_birthday', :display => 'popup'
-      config.omniauth :twitter, Settings.social.twitter.consumer_key, Settings.social.twitter.consumer_secret, :display => 'popup'
-      config.omniauth :google_oauth2, Settings.social.google.consumer_key, Settings.social.google.consumer_secret, { access_type: 'offline', prompt: 'consent', scope: 'userinfo.email,userinfo.profile,https://picasaweb.google.com/data/' }
-    end
-  else
-    env_keys = {
-      facebook_key: 'FACEBOOK_KEY', 
-      facebook_secret: 'FACEBOOK_SECRET', 
-      twitter_key: 'TWITTER_KEY', 
-      twitter_secret: 'TWITTER_SECRET', 
-      google_key: 'GOOGLE_KEY', 
-      google_secret: 'GOOGLE_SECRET'
-    }
-    # env_keys.each {|(key,value)|
-    #   raise "no env #{value}" unless ENV[value]
-    # }
-
-    Devise.setup do |config|
-      config.omniauth :facebook, ENV[env_keys[:facebook_key]], ENV[env_keys[:facebook_secret]], :scope => 'email,user_birthday', :display => 'popup'
-      config.omniauth :twitter, ENV[env_keys[:twitter_key]], ENV[env_keys[:twitter_secret]], :display => 'popup'
-      config.omniauth :google_oauth2, ENV[env_keys[:google_key]], ENV[env_keys[:google_secret]], { access_type: 'offline', prompt: 'consent', scope: 'userinfo.email,userinfo.profile,https://picasaweb.google.com/data/' }
-    end
+  Devise.setup do |config|
+    OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
+    config.omniauth :facebook, Settings.social.facebook.consumer_key, Settings.social.facebook.consumer_secret, :scope => 'email,user_birthday', :display => 'popup'
+    config.omniauth :twitter, Settings.social.twitter.consumer_key, Settings.social.twitter.consumer_secret, :display => 'popup'
+    config.omniauth :google_oauth2, Settings.social.google.consumer_key, Settings.social.google.consumer_secret, { access_type: 'offline', prompt: 'consent', scope: 'userinfo.email,userinfo.profile,https://picasaweb.google.com/data/' }
   end
 end
