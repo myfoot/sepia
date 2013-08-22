@@ -3,6 +3,7 @@ rvm:
   - 2.0.0
 gemfile:
   - Gemfile
+bundler_args: ''
 before_install:
   - gem install bundler
 before_script:
