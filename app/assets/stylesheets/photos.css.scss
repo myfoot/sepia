@@ -1,5 +1,4 @@
 @import "compass";
-@import "compass/utilities/text/ellipsis";
 
 @mixin zoom-in {
     @include scale(1.25);
@@ -76,16 +75,25 @@ h1 {
                 margin: 0 0 27px 30px;
                 max-width: $polaroid-width;
                 padding: 10px 10px 15px;
-                text-align: center;
                 text-decoration: none;
                 color: #333;
                 font-size: 14px;
                 position: relative;
 
-                @include ellipsis;
                 @include box-shadow(rgba(0,0,0,.25) 0 3px 6px);
                 @include rotate(-2deg);
                 @include transition(transform .15s linear);
+
+                .message {
+                    margin: 0px;
+                }
+
+                .message-truncate {
+                    cursor: pointer;
+                    &:hover {
+                        color: rgb(139, 139, 139);
+                    }
+                }
 
                 &:hover {
                     @include zoom-in;
@@ -99,6 +107,7 @@ h1 {
                     display: block;
                     max-width: $polaroid-width;
                     max-height: 190px;
+                    margin: auto;
                     margin-bottom: 12px;
                     padding-top: 2px;
                 }
