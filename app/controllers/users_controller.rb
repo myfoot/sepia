@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   private
   def check_user
-    head :forbidden if current_user.id != params[:id]
+    head :forbidden if current_user.id != params[:id].to_i
   end
   
   def set_user
