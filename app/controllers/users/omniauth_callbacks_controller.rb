@@ -5,6 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     create_and_redirect :facebook, {
       name: auth.info.nickname,
       email: auth.info.email,
+      avatar_url: auth.info.image,
       uid: auth.uid,
       token: auth.credentials.token,
       expired_at: Time.at(auth.credentials.expires_at)
@@ -16,6 +17,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     create_and_redirect :twitter, {
       name: auth.info.nickname,
       email: auth.info.email,
+      avatar_url: auth.info.image,
       uid: auth.uid,
       token: auth.credentials.token,
       secret: auth.credentials.secret
@@ -27,6 +29,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     create_and_redirect :google_oauth2, {
       name: auth.info.name,
       email: auth.info.email,
+      avatar_url: auth.info.image,
       uid: auth.uid,
       token: auth.credentials.token,
       refresh_token: auth.credentials.refresh_token,
