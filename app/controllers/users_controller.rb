@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :check_user, only: [:show, :update]
   before_action :set_user, only: [:show, :update]
 
   def show
@@ -9,8 +11,13 @@ class UsersController < ApplicationController
   end
 
   private
+  def check_user
+    head :forbidden if current_user.id != params[:id]
+  end
+  
   def set_user
-    @user = User.find(params[:id])
+    @user = User.where(id: params[:id]).first
+    head :not_found unless @user
   end
 
   def user_params
