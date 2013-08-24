@@ -3,9 +3,9 @@ rvm:
   - 2.0.0
 gemfile:
   - Gemfile
-bundler_args: ''
 before_install:
-  - gem install bundler
+  - gem install bundler --pre
+bundler_args: '--jobs=4 --without deployment production development'
 before_script:
   - cp config/settings.yml.sample config/settings.yml
 script: "(rake db:migrate RAILS_ENV=test) && (bundle exec rake spec)"
