@@ -23,7 +23,7 @@ vendor
 /tmp
 
 #for Gemfile
-#Gemfile.lock
+Gemfile.lock
 
 #for settings
 config/settings.yml
