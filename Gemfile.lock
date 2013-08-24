@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/bricker/redis-store.git
+  remote: https://github.com/bricker/redis-store.git
   revision: 99aa42f876d89d84e66a3a59f31e867a382bbd8a
   specs:
     redis-actionpack (3.2.3)
@@ -20,7 +20,7 @@ GIT
       redis (>= 2.2)
 
 GIT
-  remote: git://github.com/idl3/devise.git
+  remote: https://github.com/idl3/devise.git
   revision: 5a96778c678f2bce91bcdd63b16206a516002649
   branch: rails4
   specs:
@@ -31,7 +31,7 @@ GIT
       warden (~> 1.2.1)
 
 GIT
-  remote: git://github.com/milgner/compass-rails.git
+  remote: https://github.com/milgner/compass-rails.git
   revision: c86e7fd9c2605c80816a2f64a3fb8b7c3a09e494
   branch: rails4
   specs:
