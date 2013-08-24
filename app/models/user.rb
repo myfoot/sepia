@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   devise :trackable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email
+  attr_accessible :name, :email, :avatar_url
 
   has_many :access_tokens
   has_many :photos
@@ -27,13 +27,14 @@ class User < ActiveRecord::Base
   end
 
   class << self
-    def find_or_create_by_auth(provider: "", name: "", email: "", uid: "", token: "", refresh_token: "", secret: "", expired_at: nil, **others)
+    def find_or_create_by_auth(provider: "", name: "", email: "", uid: "", avatar_url: "", token: "", refresh_token: "", secret: "", expired_at: nil, **others)
       access_token = AccessToken.where(provider: provider, uid: uid).first
       user = access_token.try(:user)
       if user.nil?
-        user = User.create(name: name, email: email)
+        user = User.create(name: name, email: email, avatar_url: avatar_url)
         access_token = AccessToken.create(provider: provider, uid: uid, token: token, refresh_token: refresh_token, secret: secret, user_id: user.id, name: name, expired_at: expired_at)
       else
+        user.update(avatar_url: avatar_url) if user.avatar_url != avatar_url
         access_token.update(name: name, token: token, secret: secret, expired_at: expired_at)
       end
       user
