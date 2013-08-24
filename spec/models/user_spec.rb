@@ -70,7 +70,7 @@ describe User do
       let(:new_name){ "hoge" }
       let(:new_token){ "hoge-token" }
       let(:new_secret){ "hoge-secret" }
-      let(:new_expired_at){ Time.now }
+      let(:new_expired_at){ Time.now.localtime }
       let(:new_avatar_url){ "hoge-url" }
 
       subject { User.find_or_create_by_auth(name: new_name, provider: provider, uid: uid, token: new_token, secret: new_secret, avatar_url: new_avatar_url, expired_at: new_expired_at) }
@@ -81,7 +81,7 @@ describe User do
         expect(token.name).to eq(new_name)
         expect(token.token).to eq(new_token)
         expect(token.secret).to eq(new_secret)
-        expect(token.expired_at).to eq(new_expired_at)
+        expect(token.expired_at.localtime).to eq(new_expired_at)
 
         expect(subject.avatar_url).to eq(new_avatar_url)
       end
