@@ -6,3 +6,12 @@ h1
   | &nbsp;
   = @album.name
 
+div="UIがんばってちょ"
+
+= form_tag album_photos_path(album_id: params[:id], format: :json) do
+  fieldset
+    label="PhotoID"
+    = text_field_tag :'photo_ids[]'
+    label="PhotoID"
+    = text_field_tag :'photo_ids[]'
+    = submit_tag :do, class: :btn
