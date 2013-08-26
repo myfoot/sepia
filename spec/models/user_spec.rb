@@ -2,7 +2,8 @@
 require 'spec_helper'
 
 describe User do
-  let(:user) { User.new(name: "test-user", email: "hoge@gmail.com") }
+  let(:avatar_url) { "http://hoge.jpg" }
+  let(:user) { User.new(name: "test-user", email: "hoge@gmail.com", avatar_url: avatar_url) }
   let(:provider) { :twitter }
   let(:uid) { "1234567890" }
   let(:token) { "hoge" }
@@ -60,19 +61,38 @@ describe User do
     end
   end
 
-  describe ".find_or_create" do
+  describe ".find_or_create_by_auth" do
     before do
       user.save
       access_token
     end
     context "provider, uid が一致するユーザーが存在する場合" do
-      subject { User.find_or_create_by_auth(name: "hoge", provider: provider, uid: uid, token: token, secret: secret) }
+      let(:new_name){ "hoge" }
+      let(:new_token){ "hoge-token" }
+      let(:new_secret){ "hoge-secret" }
+      let(:new_expired_at){ Time.now.localtime }
+      let(:new_avatar_url){ "hoge-url" }
+
+      subject { User.find_or_create_by_auth(name: new_name, provider: provider, uid: uid, token: new_token, secret: new_secret, avatar_url: new_avatar_url, expired_at: new_expired_at) }
+
       it { should == user }
+      it "name, token, secret, expired_at, avatar_urlが更新される" do
+        token = subject.access_tokens.first
+        expect(token.name).to eq(new_name)
+        expect(token.token).to eq(new_token)
+        expect(token.secret).to eq(new_secret)
+        expect(token.expired_at.to_i).to eq(new_expired_at.to_i)
+
+        expect(subject.avatar_url).to eq(new_avatar_url)
+      end
     end
     context "provider, uid が一致するユーザーが存在しない場合" do
-      subject { User.find_or_create_by_auth(name: "hoge", provider: provider, uid: "aaaaaa", token: token, secret: secret) }
+      subject { User.find_or_create_by_auth(name: "hoge", provider: provider, uid: "aaaaaa", token: token, secret: secret, avatar_url: avatar_url) }
       it "新規ユーザーを取得できる" do
         expect(subject).not_to eq(user)
+        expect(subject.name).to eq("hoge")
+        expect(subject.email).to eq("")
+        expect(subject.avatar_url).to eq(avatar_url)
       end
     end
   end
