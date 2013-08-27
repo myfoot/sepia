@@ -18,10 +18,11 @@ h1
   ul#polaroids
     - @photos.each do |photo|
         li data-page="#{current_page}"
-          div.polaroid data-original-title=format_time(photo.posted_at) data-content==photo.message
+          div.polaroid data-original-title=format_time(photo.posted_at) data-content==""
             span.pin
             = image_tag('loader.gif', class: 'img-photo', 'data-src' => photo.thumbnail_url)
-            p.message == photo.message
+            .message
+              span.message-short == photo.message
 
 - if per_page * current_page < @all_count
   div#more
@@ -31,9 +32,10 @@ h1
 
 script#photo-template type="text/template"
   li
-    div.polaroid data-original-title="%{ posted_at }" data-content="%{ message }"
+    div.polaroid data-original-title="%{ posted_at }" data-content=""
       span.pin
       = image_tag('loader.gif', class: 'img-photo', :'data-src' => '%{ url }', :'data-page' => '%{ page }')
-      p.message = '%{ message }'
+      .message
+        span.message-short = '%{ message }'
 script
   | $('.alert').alert();
