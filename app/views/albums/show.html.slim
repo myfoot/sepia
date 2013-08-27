@@ -15,3 +15,11 @@ div="UIがんばってちょ"
     label="PhotoID"
     = text_field_tag :'photo_ids[]'
     = submit_tag :do, class: :btn
+
+= form_tag(album_photos_path(album_id: params[:id], format: :json), method: :delete) do
+  fieldset
+    label="PhotoID"
+    = text_field_tag :'photo_ids[]'
+    label="PhotoID"
+    = text_field_tag :'photo_ids[]'
+    = submit_tag :do, class: :btn
