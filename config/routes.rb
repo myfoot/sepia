@@ -3,7 +3,9 @@ Sepia::Application.routes.draw do
 
   resources :photos, only: [:index]
   resources :albums, only: [:index, :show, :create, :update, :destroy] do
-    resources :photos, controller: 'albums/photos', only: [:create], constraints: { format: 'json' }, format: true
+    resources :photos, controller: 'albums/photos', only: [:create], constraints: { format: 'json' }, format: true do
+      delete :destroy, on: :collection
+    end
   end
   resources :users,  only: [:show, :update]
 
