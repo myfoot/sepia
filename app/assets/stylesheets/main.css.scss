@@ -28,6 +28,17 @@ html, body {
         .menu-contents {
             width: $side-menu-width;
             .nav-list {
+                #avatar {
+                    img {
+                        width: 30px;
+                        height: 30px;
+                        margin: 10px 10px 10px -4px;
+                    }
+                    span {
+                        color: white;
+                    }
+                }
+
                 > li > a {
                     text-shadow: none;
                     color: #FFF;
