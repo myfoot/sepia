@@ -5,17 +5,24 @@
 $('body').popover(selector: 'div[class=polaroid]', trigger: 'hover')
 
 truncate_message = (parent) ->
-  polaroids = if parent? then $('.polaroid .message', parent) else $('.polaroid .message')
-  polaroids.each ->
-    $(this).trunk8()
-    if $(this).attr('title')?
-      $(this).addClass('message-truncate')
-      $(this).on 'click', ->
-        trunkOption = if $(this).attr('title') == $(this).text() then '' else 'revert'
-        $(this).css('visibility', 'hidden')
-        $(this).css('opacity', 0.0)
-        $(this).css('visibility', 'visible').animate(opacity: 1.0, 200)
-        $(this).trunk8(trunkOption)
+  messages = if parent? then $('.polaroid .message', parent) else $('.polaroid .message')
+  messages.each ->
+    message = $(this)
+    short = $(".message-short", message)
+    origin_text = short.text()
+    short.trunk8()
+    if short.attr('title')?
+      message.addClass('message-toggle')
+      message.width(short.width())
+      short_real_length = short.text().length - 1 # truncate '&hellip;'
+      message.append('<p class="message-full">' + origin_text.substr(short_real_length) + '</p>')
+      message.on 'click', ->
+        full = $('.message-full', message)
+        if full.css('display') is 'none'
+          short.text(short.text().substr(0, short_real_length))
+        else
+          short.append('&hellip;')
+        full.slideToggle('middle')
 
 truncate_message()
 
