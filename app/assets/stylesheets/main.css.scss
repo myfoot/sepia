@@ -24,6 +24,7 @@ html, body {
         bottom: 0;
         background-color: #333;
         z-index: 9999;
+        white-space: nowrap;
 
         .menu-contents {
             width: $side-menu-width;
@@ -33,9 +34,6 @@ html, body {
                         width: 30px;
                         height: 30px;
                         margin: 10px 10px 10px -4px;
-                    }
-                    span {
-                        color: white;
                     }
                 }
 
