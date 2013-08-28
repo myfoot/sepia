@@ -7,10 +7,14 @@ h1
 button.btn.btn-primary data-toggle="modal" href="#create-form"
   i.icon-plus
 
-#albums
-  ul
+.row-fluid
+  ul#albums.thumbnails
     - @albums.each do |album|
-        li= link_to album.name, url_for(album)
+        li.span3.album= link_to url_for(album), class: "thumbnail" do
+            = image_tag("/images/no-image.jpg")
+            div.caption
+              h4.title = album.name + " (0)"
+              p.date = format_time(album.updated_at)
 
 #create-form.modal.fade
   .modal-dialog
