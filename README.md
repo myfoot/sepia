@@ -26,6 +26,9 @@ social:
   google:
     consumer_key: 'xxx'
     consumer_secret: 'xxx'
+  instagram:
+    consumer_key: ''
+    consumer_secret: ''
 ```
 
 ### config/database.yml

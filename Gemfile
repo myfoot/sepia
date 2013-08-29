@@ -30,6 +30,7 @@ gem 'devise', github: 'idl3/devise', branch: 'rails4'#gem 'devise', '2.2.4'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-instagram'
 gem 'protected_attributes'
 
 # for twitter
