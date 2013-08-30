@@ -39,6 +39,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     scheduled_crawl_all
   end
 
+  def instagram
+    create_and_redirect :instagram, {
+      name: auth.info.nickname,
+      email: auth.info.email,
+      avatar_url: auth.info.image,
+      uid: auth.uid,
+      token: auth.credentials.token
+    }
+    scheduled_crawl_all
+  end
+
   private
   def auth
     @auth ||= request.env["omniauth.auth"]

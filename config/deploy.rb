@@ -82,6 +82,8 @@ def set_env
   default_environment['FACEBOOK_SECRET'] = settings["social"]["facebook"]["consumer_secret"]
   default_environment['GOOGLE_KEY']      = settings["social"]["google"]["consumer_key"]
   default_environment['GOOGLE_SECRET']   = settings["social"]["google"]["consumer_secret"]
+  default_environment['INSTAGRAM_KEY']      = settings["social"]["instagram"]["consumer_key"]
+  default_environment['INSTAGRAM_SECRET']   = settings["social"]["instagram"]["consumer_secret"]
 
   puts "--- complete set_env"
 end
