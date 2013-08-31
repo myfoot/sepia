@@ -213,5 +213,6 @@ Devise.setup do |config|
     config.omniauth :facebook, Settings.social.facebook.consumer_key, Settings.social.facebook.consumer_secret, :scope => 'email,user_birthday', :display => 'popup'
     config.omniauth :twitter, Settings.social.twitter.consumer_key, Settings.social.twitter.consumer_secret, :display => 'popup'
     config.omniauth :google_oauth2, Settings.social.google.consumer_key, Settings.social.google.consumer_secret, { access_type: 'offline', prompt: 'consent', scope: 'userinfo.email,userinfo.profile,https://picasaweb.google.com/data/' }
+    config.omniauth :instagram, Settings.social.instagram.consumer_key, Settings.social.instagram.consumer_secret
   end
 end

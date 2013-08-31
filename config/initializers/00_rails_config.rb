@@ -15,6 +15,10 @@ if Rails.env.production?
     google: RailsConfig::Options.new({
        consumer_key:    ENV['GOOGLE_KEY'],
        consumer_secret: ENV['GOOGLE_SECRET']
+    }),
+    instagram: RailsConfig::Options.new({
+       consumer_key:    ENV['INSTAGRAM_KEY'],
+       consumer_secret: ENV['INSTAGRAM_SECRET']
     })
   })
 end

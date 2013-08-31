@@ -10,3 +10,6 @@ social:
   google:
     consumer_key: ''
     consumer_secret: ''
+  instagram:
+    consumer_key: ''
+    consumer_secret: ''
