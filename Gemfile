@@ -33,9 +33,6 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-instagram'
 gem 'protected_attributes'
 
-# for twitter
-gem 'twitter'
-
 #for view
 gem 'slim-rails'
 gem "therubyracer"
@@ -56,6 +53,8 @@ gem 'kaminari'
 
 # for clients
 gem 'koala', "~> 1.7.0rc1" # facebook
+gem 'twitter'
+gem 'instagram'
 
 gem 'mysql2', group: [:production, :development]
 
