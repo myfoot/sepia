@@ -16,6 +16,10 @@ describe Clients::Social do
       subject { Clients::Social.find_class(:google_oauth2) }
       it { should eq Clients::Social::Google }
     end
+    context :instagram do
+      subject { Clients::Social.find_class(:instagram) }
+      it { should eq Clients::Social::InstagrAm }
+    end
     context "invalid procider" do
       subject { Clients::Social.find_class(:hoge) }
       it { should be_nil }
