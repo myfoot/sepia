@@ -1,6 +1,7 @@
 class AlbumsController < ApplicationController
   include Paginate
   before_action :authenticate_user!
+  before_action :check_viewable
 
   def index
     @albums =
@@ -33,6 +34,11 @@ class AlbumsController < ApplicationController
   end
 
   private
+  def check_viewable
+    if params[:id] && (album = Album.find_by(id: params[:id]))
+      head :forbidden if current_user.id != album.user_id
+    end
+  end
   def album
     params.require(:album).permit(:name)
   end
