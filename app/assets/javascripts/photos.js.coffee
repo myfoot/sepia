@@ -12,6 +12,7 @@ truncate_message = (parent) ->
     origin_text = short.text()
     short.trunk8()
     if short.attr('title')?
+      message.css('text-align', 'left')
       message.addClass('message-toggle')
       message.width(short.width())
       short_real_length = short.text().length - 1 # truncate '&hellip;'
