@@ -6,9 +6,10 @@ class AlbumsController < ApplicationController
     @albums =
       current_user
       .albums
+      .eager_load(:photos)
       .page(params[:page] || 1)
       .per(Settings.photos.per_page)
-      .order('created_at DESC')
+      .order('albums.created_at DESC')
     @all_count = current_user.albums.size
   end
 
