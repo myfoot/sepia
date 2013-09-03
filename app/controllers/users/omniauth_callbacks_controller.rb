@@ -74,9 +74,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def scheduled_crawl_all
+    queues = Queues.new
     @user.access_tokens.not_expired.select(:id, :provider).each{|access_token|
       client_klass = Clients::Social.find_class(access_token.provider)
-      PhotoCrawler.perform_async(client_klass.to_s, access_token.id) if client_klass
+      PhotoCrawler.perform_async(client_klass.to_s, access_token.id) if client_klass && queues.not_exist?(client_klass.to_s, access_token.id)
     }
+  end
+
+  class Queues
+    def initialize
+      @queues = Sidekiq::Queue.new
+    end
+    def not_exist? *args
+      !@queues.any? {|queue| args == queue.args }
+    end
   end
 end
