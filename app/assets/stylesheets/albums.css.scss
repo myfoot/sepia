@@ -1,35 +1,141 @@
+@import "compass";
+@import "compass/css3/box-sizing";
+
+@mixin stack-img-base {
+    max-width: 100%;
+    height: auto;
+    vertical-align: bottom;
+    border: 10px solid #fff;
+    border-bottom: 30px solid #FFF;
+    border-radius: 3px;
+    @include box-sizing(border-box);
+    @include box-shadow(0 1px 4px rgba(0, 0, 0, 0.4));
+}
+
 #albums {
     margin-top: 20px;
+    display: table;
 
     .album {
-        background-color: #fff;
+        max-width: 200px;
+        display: inline-table;
+        vertical-align: top;
+        margin-bottom: 50px;
 
-        .thumbnail {
-            padding: 10px;
+        &:hover .title {
+            color: #0088cc;
         }
 
-        a {
+        .img-link {
+            display: block;
             text-decoration: none;
+            margin-bottom: 30px;
+
+            .img-block {
+                text-align: center;
+
+                .simple {
+                    img {
+                        @include stack-img-base;
+                    }
+                }
+
+                .stack {
+                    position: relative;
+                    z-index: 10;
+                    display: inline-block;
+
+                    img {
+                        @include stack-img-base;
+                    }
+
+                    &:before, &:after {
+                        content: "";
+                        border-radius: 3px;
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        border: 10px solid #fff;
+                        left: 0;
+                        @include box-sizing(border-box);
+                        @include box-shadow(0 1px 4px rgba(0, 0, 0, 0.4));
+                        @include transition(0.3s all ease-out);
+                    }
+
+                    &:before {
+                        top: 4px;
+                        z-index: -10;
+                    }
+
+                    &:after {
+                        top: 8px;
+                        z-index: -20;
+                    }
+                }
+            }
+        }
+
+        &:nth-child(odd) .stack {
+            &:before {
+                @include rotate(4deg);
+            }
+            &:after {
+                @include rotate(-4deg);
+            }
+        }
+
+        &:nth-child(even) .stack {
+            &:before {
+                @include transform-origin(bottom left);
+                @include rotate(2deg);
+            }
+            &:after {
+                @include transform-origin(bottom left);
+                @include rotate(4deg);
+            }
+        }
+
+        &:nth-child(3n) .stack {
+            &:before {
+                @include transform-origin(bottom left);
+                @include rotate(-3deg);
+            }
+            &:after {
+                @include transform-origin(bottom left);
+                @include rotate(-6deg);
+            }
         }
 
         .title {
-            color: #4083a9;
+            display: inline;
+            margin-left: 5px;
+            color: #505050;
+            &:hover {
+                color: #0088cc;
+                text-decoration: underline;
+            }
         }
 
         .date {
+            margin: 5px 5px 0 0;
+            font-size: 0.1em;
+            color: gray;
             text-align: right;
-            margin: 0;
         }
     }
 }
 
 .row-fluid {
     ul.thumbnails {
+        // bug fix bootstrap
         li.span12 + li { margin-left : 0px; }
         li.span6:nth-child(2n + 3) { margin-left : 0px; }
         li.span4:nth-child(3n + 4) { margin-left : 0px; }
         li.span3:nth-child(4n + 5) { margin-left : 0px; }
         li.span2:nth-child(6n + 7) { margin-left : 0px; }
         li.span1:nth-child(12n + 13) { margin-left : 0px; }
+
+        // override bootstrap
+        li { float: none !important; }
     }
 }

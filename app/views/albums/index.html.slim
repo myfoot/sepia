@@ -10,11 +10,18 @@ button.btn.btn-primary data-toggle="modal" href="#create-form"
 .row-fluid
   ul#albums.thumbnails
     - @albums.each do |album|
-        li.span3.album= link_to url_for(album), class: "thumbnail" do
-            = image_tag(album.photos.empty? ? "/images/no-image.jpg" : album.photos.first.thumbnail_url)
-            div.caption
-              h4.title = album.name + " (#{album.photos.length})"
-              p.date = format_time(album.updated_at)
+      li.album
+        = link_to url_for(album), class: "img-link" do
+          .img-block
+            - if album.photos.empty?
+              span.simple
+                = image_tag("/images/no-image.jpg")
+            - else
+              span.stack
+                = image_tag(album.photos.first.thumbnail_url)
+        = link_to url_for(album) do
+          h4.title = album.name + " (#{album.photos.size})"
+        p.date = format_time(album.updated_at)
 
 #create-form.modal.fade
   .modal-dialog
