@@ -17,7 +17,7 @@ h1 Your Status
   h2 Connecting Services
   dl.dl-horizontal
     - tokens = @user.access_tokens.inject({}){ |acc, token| acc[token.provider.to_sym] = token; acc}
-    - icon_classes = { twitter: 'twitter', facebook: 'facebook-sign', google_oauth2: 'google-plus-sign', instagram: 'camera' }
+    - icon_classes = { twitter: 'twitter', facebook: 'facebook-sign', google_oauth2: 'google-plus-sign', instagram: 'instagram' }
     - icon_classes.each do |(provider, icon_class)|
       div style="margin-bottom: 10px" 
       - if token = tokens[provider]
