@@ -20,7 +20,7 @@ h1
         li data-page="#{current_page}"
           div.polaroid data-original-title=format_time(photo.posted_at) data-content==""
             span.pin
-            = image_tag('loader.gif', class: 'img-photo', 'data-src' => photo.thumbnail_url)
+            = lazy_image_tag(photo.thumbnail_url, class: 'img-photo')
             .message
               span.message-short == photo.message
 
