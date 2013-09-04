@@ -7,7 +7,7 @@ class Photo < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :provider, presence: true
-  validates :platform_id, presence: true
+  validates :platform_id, presence: true, uniqueness: { scope: :provider }
   validates :format, presence: true
   validates :posted_at, presence: true
 
