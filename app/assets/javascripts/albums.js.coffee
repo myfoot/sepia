@@ -12,7 +12,7 @@ $(formId).submit (event) ->
   event.preventDefault()
 
   $form = $(this)
-  $submitButton = $(submitButtonId);
+  $submitButton = $(submitButtonId)
   $submitButton.attr 'disabled', true
   $errors = $(errorAreaId)
   $errors.children().remove()
@@ -36,6 +36,14 @@ $(formId).submit (event) ->
       template = _.template($(messageTemplateId).html())
       _.each error, (messages, key) ->
         _.each messages, (message) ->
-          $(template(key: key, message: message)).hide().appendTo($errors).fadeIn();
+          $(template(key: key, message: message)).hide().appendTo($errors).fadeIn()
 
   undefined
+
+
+# TODO photosと同じ処理になるはずなので共通化
+apply_unveil = ->
+  $('.img-block img').unveil(0)
+
+apply_unveil()
+
