@@ -12,7 +12,12 @@ class UsersController < ApplicationController
 
   private
   def check_user
-    head :forbidden if current_user.id != params[:id].to_i
+    if current_user.id != params[:id].to_i
+      respond_to do |format|
+        format.html { render_403 }
+        format.json { head :forbidden }
+      end
+    end
   end
   
   def set_user
