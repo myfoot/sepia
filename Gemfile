@@ -60,6 +60,7 @@ gem 'mysql2', group: [:production, :development]
 
 group :test do
   gem 'sqlite3'
+  gem 'delorean'
 end
 
 group :development, :test do

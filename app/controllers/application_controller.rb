@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   include ControllerHelper
+  include AsyncJob
+
+  before_action :photo_collect
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -20,5 +23,10 @@ class ApplicationController < ActionController::Base
                     
                     render :template => "errors/#{status}", :status => status, :layout => 'application', :content_type => 'text/html'
                   });
+  end
+
+  private
+  def photo_collect
+    schedule_photo_collect(current_user) if current_user
   end
 end
