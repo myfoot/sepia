@@ -11,11 +11,15 @@ class ApplicationController < ActionController::Base
     rescue_from Exception, :with => :render_500
   end
 
-  [404, 403, 500].each do |status|
+  {
+    404 => { log: :info  }.ninja,
+    403 => { log: :info  }.ninja,
+    500 => { log: :error }.ninja
+  }.each do |(status, option)|
     define_method("render_#{status}",
                   -> (exception = nil) {
                     if exception
-                      logger.info "Rendering #{status} with exception: #{exception.message}"
+                      logger.send(option.log, "Rendering #{status} with exception: #{exception.message}")
                     end
                     
                     render :template => "errors/#{status}", :status => status, :layout => 'application', :content_type => 'text/html'
