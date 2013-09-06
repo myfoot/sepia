@@ -58,6 +58,8 @@ gem 'instagram'
 
 gem 'mysql2', group: [:production, :development]
 
+gem 'ninja', github: 'myfoot/ninja'
+
 group :test do
   gem 'sqlite3'
 end
