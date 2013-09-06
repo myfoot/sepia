@@ -1,5 +1,7 @@
 photos:
   per_page: 50
+albums:
+  per_page: 25
 social:
   twitter:
     consumer_key: ''
