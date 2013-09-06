@@ -20,4 +20,7 @@ Sepia::Application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web, at: '/sidekiq'
 
+  if Rails.env.production?
+    match '*not_found', to: 'application#render_404', via: :all
+  end
 end
