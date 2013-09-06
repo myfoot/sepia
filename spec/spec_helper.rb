@@ -40,6 +40,8 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  config.include Delorean
+
   config.before do
     @timezone_origin = ENV['TZ']
     ENV['TZ'] = 'Asia/Tokyo'
@@ -47,5 +49,6 @@ RSpec.configure do |config|
 
   config.after do
     ENV['TZ'] = @timezone_origin
+    back_to_1985
   end
 end

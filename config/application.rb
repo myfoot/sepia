@@ -23,12 +23,12 @@ module Sepia
 
     # config.gem "redis-store", :lib => "redis-store"
     # require "redis-store" # HACK
-    # config.cache_store = :redis_store, {
-    #   :host => "localhost",
-    #   :port => 6379,
-    #   :db => 0,
-    #   :namespace => "sepia:cache"
-    # }
+    config.cache_store = :redis_store, {
+      :host => "localhost",
+      :port => 6379,
+      :db => 0,
+      :namespace => "sepia:cache"
+    }
     config.active_record.whitelist_attributes = false
 
     config.assets.initialize_on_precompile = false

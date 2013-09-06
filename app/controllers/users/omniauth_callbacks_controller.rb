@@ -1,5 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include ControllerHelper
+  include AsyncJob
 
   def facebook
     create_and_redirect :facebook, {
@@ -10,7 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       token: auth.credentials.token,
       expired_at: Time.at(auth.credentials.expires_at)
     }
-    scheduled_crawl_all
+    schedule_photo_collect @user
   end
 
   def twitter
@@ -22,7 +23,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       token: auth.credentials.token,
       secret: auth.credentials.secret
     }
-    scheduled_crawl_all
+    schedule_photo_collect @user
   end
 
   def google_oauth2
@@ -36,7 +37,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       secret: auth.credentials.secret,
       expired_at: Time.at(auth.credentials.expires_at)
     }
-    scheduled_crawl_all
+    schedule_photo_collect @user
   end
 
   def instagram
@@ -47,7 +48,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       uid: auth.uid,
       token: auth.credentials.token
     }
-    scheduled_crawl_all
+    schedule_photo_collect @user
   end
 
   private
@@ -71,22 +72,5 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def redirect_to_authentication provider
     flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => provider
     sign_in_and_redirect @user, :event => :authentication
-  end
-
-  def scheduled_crawl_all
-    queues = Queues.new
-    @user.access_tokens.not_expired.select(:id, :provider).each{|access_token|
-      client_klass = Clients::Social.find_class(access_token.provider)
-      PhotoCrawler.perform_async(client_klass.to_s, access_token.id) if client_klass && queues.not_exist?(client_klass.to_s, access_token.id)
-    }
-  end
-
-  class Queues
-    def initialize
-      @queues = Sidekiq::Queue.new
-    end
-    def not_exist? *args
-      !@queues.any? {|queue| args == queue.args }
-    end
   end
 end
