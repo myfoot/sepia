@@ -41,9 +41,22 @@ $(formId).submit (event) ->
   undefined
 
 
-# TODO photosと同じ処理になるはずなので共通化
-apply_unveil = ->
-  $('.img-block img').unveil(0)
+apply_unveil = (page) -> $(".img-block img[data-page='#{page}']").unveil(0)
+apply_unveil(1)
 
-apply_unveil()
+$('#load-link').bind 'click', ->
+  $link = $(this)
+  currentPage = $link.attr('data-current-page') - 0
+  $.get($link.data('url'), page: currentPage+1)
+  .done (data) ->
+    parent = $('#albums')
+    template = _.template($('#album-template').html())
+    append_albums = ''
+    _.each data.albums, (album, i) ->
+      stack_class = if album.size < 1 then 'simple' else 'stack'
+      append_albums += template(page: data.page, url: album.url, image_url: album.image_url, name: album.name, size: album.size, updated_at: album.updated_at, stack_class: stack_class)
+    $(parent).append(append_albums)
 
+    apply_unveil(data.page)
+    $link.attr 'data-current-page', data.page
+    $link.hide() if data.page * 25 >= data.all_count

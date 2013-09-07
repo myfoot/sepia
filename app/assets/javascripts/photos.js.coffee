@@ -27,13 +27,8 @@ truncate_message = (parent) ->
 
 truncate_message()
 
-apply_unveil = (target) ->
-  if target?
-    $(target).unveil(0)
-  else
-    $('img.img-photo').unveil(0)
-
-apply_unveil()
+apply_unveil = (page) -> $("img.img-photo[data-page='#{page}']").unveil(0)
+apply_unveil(1)
 
 $('#load-link').bind 'click', ->
   $link = $(this)
@@ -50,6 +45,6 @@ $('#load-link').bind 'click', ->
     $(parent).append(polaroidsObj)
     polaroidsObj.each -> truncate_message($(this))
 
-    apply_unveil("img.img-photo[data-page='#{data.page}']")
+    apply_unveil(data.page)
     $link.attr 'data-current-page', data.page
     $link.hide() if data.page * 50 >= data.all_count

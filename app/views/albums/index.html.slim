@@ -1,5 +1,7 @@
 ruby:
+  per_page = Settings.albums.per_page
   current_page = (params[:page].try(:to_i) || 1)
+
 h1 
   i.icon-film
   |  Your Albums
@@ -15,13 +17,17 @@ button.btn.btn-primary data-toggle="modal" href="#create-form"
           .img-block
             - if album.photos.empty?
               span.simple
-                = lazy_image_tag('/images/no-image.jpg')
+                = lazy_image_tag('/images/no-image.jpg', :'data-page' => 1)
             - else
               span.stack
-                = lazy_image_tag(album.photos.first.thumbnail_url)
+                = lazy_image_tag(album.photos.first.thumbnail_url, :'data-page' => 1)
         = link_to url_for(album) do
           h4.title = album.name + " (#{album.photos.size})"
         p.date = format_time(album.updated_at)
+
+- if per_page * current_page < @all_count
+  div#more
+    = link_to 'Show more results', 'javaScript:void(0)', id: "load-link", :'data-current-page' => "#{current_page}", :'data-url' => "#{albums_path(format: :json)}", class: "btn"
 
 #create-form.modal.fade
   .modal-dialog
@@ -44,10 +50,20 @@ button.btn.btn-primary data-toggle="modal" href="#create-form"
 
 = javascript_include_tag "albums"
 
+script#album-template type="text/template"
+  li.album
+    = link_to '%{ url }', class: "img-link" do
+      .img-block
+        span class='%{ stack_class }'
+          = lazy_image_tag('%{ image_url }', :'data-page' => '%{ page }')
+    = link_to '%{ url }' do
+      h4.title = "%{ name } (%{ size })"
+    p.date = '%{ updated_at }'
+
 script#error-msg-template type="text/template"
   .alert.alert-danger
     button.close data-dismiss="alert"
       | &times;
     strong
-      | %{ key } : 
+      | %{ key } :
     | %{ message }
