@@ -7,15 +7,6 @@
     z-index: 5;
 }
 
-@mixin pin($color) {
-   background: url("/images/pin/pin24_#{$color}.png") no-repeat;
-   height: 20px;
-   width: 25px;
-   position: absolute;
-   top: 0.5px;
-   left: 45%;
-}
-
 $polaroid-width: 190px;
 
 h1 {
@@ -31,41 +22,26 @@ h1 {
 
             &:nth-child(even) .polaroid {
                 @include rotate(2deg);
-                .pin {
-                    @include pin("lblue");
-                }
             }
 
             &:nth-child(3n) .polaroid {
                 @include transform(none);
                 top: -5px;
-                .pin {
-                    @include pin("pink");
-                }
             }
 
             &:nth-child(5n) .polaroid {
                 @include rotate(5deg);
                 right: 5px;
-                .pin {
-                    @include pin("white");
-                }
             }
 
             &:nth-child(8n) .polaroid {
                 right: 5px;
                 top: 8px;
-                .pin {
-                    @include pin("orange");
-                }
             }
 
             &:nth-child(11n) .polaroid {
                 left: -5px;
                 top: 3px;
-                .pin {
-                    @include pin("black");
-                }
             }
 
             .polaroid {
@@ -104,10 +80,6 @@ h1 {
 
                 &:hover {
                     @include zoom-in;
-                }
-
-                .pin {
-                    @include pin("green");
                 }
 
                 .img-photo {
