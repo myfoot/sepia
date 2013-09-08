@@ -19,7 +19,7 @@ h1
     - @photos.each do |photo|
         li
           div class="polaroid frame-#{photo.provider}" data-original-title=format_time(photo.posted_at) data-content==""
-            span.pin
+            span
             = lazy_image_tag(photo.thumbnail_url, class: 'img-photo', :'data-page' => 1)
             .message
               span.message-short == photo.message
@@ -33,7 +33,7 @@ h1
 script#photo-template type="text/template"
   li
     div class="polaroid frame-%{ provider }" data-original-title="%{ posted_at }" data-content=""
-      span.pin
+      span
       = lazy_image_tag('%{ url }', class: 'img-photo', :'data-page' => '%{ page }')
       .message
         span.message-short = '%{ message }'
