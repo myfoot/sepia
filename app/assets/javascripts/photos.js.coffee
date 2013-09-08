@@ -10,7 +10,7 @@ truncate_message = (parent) ->
     message = $(this)
     short = $(".message-short", message)
     origin_text = short.text()
-    short.trunk8()
+    short.trunk8(lines: 2)
     if short.attr('title')?
       message.css('text-align', 'left')
       message.addClass('message-toggle')
