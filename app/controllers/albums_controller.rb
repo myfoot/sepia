@@ -25,7 +25,7 @@ class AlbumsController < ApplicationController
   def update
     @album = current_user.albums.find(params[:id])
     @album.name = album[:name]
-    @album.update
+    @album.save!
   end
 
   def destroy

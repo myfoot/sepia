@@ -60,3 +60,25 @@ $('#load-link').bind 'click', ->
     apply_unveil(data.page)
     $link.attr 'data-current-page', data.page
     $link.hide() if data.page * 25 >= data.all_count
+
+
+$('.title-edit').on 'click', ->
+  album_id = $(this).data('album-id')
+  title =  $("#title-#{album_id}")
+  header = $("#title-header-#{album_id}")
+  header.hide()
+
+  $("#title-edit-#{album_id}")
+  .val(title.html())
+  .fadeIn()
+  .on 'keypress.title-edit', (event) ->
+    if event.which == 13
+      text = $(this)
+      new Album(album_id)
+      .update(text.val())
+      .done (data) ->
+        title.html text.val()
+      .always ->
+        text.off('keypress.title-edit').hide()
+        header.fadeIn()
+
