@@ -12,6 +12,7 @@ set :scm, :git
 set :repository,  "https://github.com/myfoot/sepia.git"
 set :branch, "develop"
 set :deploy_to, "/usr/local/#{application}"
+set :deploy_via, :remote_cache
 set :keep_releases, 2
 set :bundle_dir, File.join(fetch(:shared_path), 'bundle')
 set :bundle_flags, "--quiet"
