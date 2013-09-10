@@ -21,8 +21,13 @@ button.btn.btn-primary data-toggle="modal" href="#create-form"
             - else
               span.stack
                 = lazy_image_tag(album.photos.first.thumbnail_url, :'data-page' => 1)
-        = link_to url_for(album) do
-          h4.title = album.name + " (#{album.photos.size})"
+        h4.title id="title-header-#{album.id}"
+          = link_to url_for(album) do
+            span id="title-#{album.id}" = album.name
+            = " (#{album.photos.size})"
+        input type="text" id="title-edit-#{album.id}" style="display:none;"
+        | &nbsp;
+        i.btn.btn-link.icon-edit.title-edit data-album-id="#{album.id}"
         p.date = format_time(album.updated_at)
 
 - if per_page * current_page < @all_count
