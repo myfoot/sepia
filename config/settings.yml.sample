@@ -15,3 +15,6 @@ social:
   instagram:
     consumer_key: ''
     consumer_secret: ''
+  foursquare:
+    consumer_key: ''
+    consumer_secret: ''
