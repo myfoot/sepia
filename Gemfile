@@ -56,6 +56,7 @@ gem 'kaminari'
 gem 'koala', "~> 1.7.0rc1" # facebook
 gem 'twitter'
 gem 'instagram'
+gem 'foursquare2'
 
 gem 'mysql2', group: [:production, :development]
 

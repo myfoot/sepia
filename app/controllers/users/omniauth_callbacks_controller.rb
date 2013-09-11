@@ -59,7 +59,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       uid: auth.uid,
       token: auth.credentials.token
     }
-    # schedule_photo_collect @user # TODO: Client
+    schedule_photo_collect @user
   end
 
   private
