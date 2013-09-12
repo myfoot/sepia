@@ -20,6 +20,10 @@ describe Clients::Social do
       subject { Clients::Social.find_class(:instagram) }
       it { should eq Clients::Social::InstagrAm }
     end
+    context :foursquare do
+      subject { Clients::Social.find_class(:foursquare) }
+      it { should eq Clients::Social::Foursquare }
+    end
     context "invalid procider" do
       subject { Clients::Social.find_class(:hoge) }
       it { should be_nil }

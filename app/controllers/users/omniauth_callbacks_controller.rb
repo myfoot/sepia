@@ -51,6 +51,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     schedule_photo_collect @user
   end
 
+  def foursquare
+    create_and_redirect :foursquare, {
+      name: auth.info.first_name,
+      email: auth.info.email,
+      avatar_url: auth.info.image,
+      uid: auth.uid,
+      token: auth.credentials.token
+    }
+    schedule_photo_collect @user
+  end
+
   private
   def auth
     @auth ||= request.env["omniauth.auth"]

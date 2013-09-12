@@ -214,5 +214,6 @@ Devise.setup do |config|
     config.omniauth :twitter, Settings.social.twitter.consumer_key, Settings.social.twitter.consumer_secret, :display => 'popup'
     config.omniauth :google_oauth2, Settings.social.google.consumer_key, Settings.social.google.consumer_secret, { access_type: 'offline', prompt: 'consent', scope: 'userinfo.email,userinfo.profile,https://picasaweb.google.com/data/' }
     config.omniauth :instagram, Settings.social.instagram.consumer_key, Settings.social.instagram.consumer_secret
+    config.omniauth :foursquare, Settings.social.foursquare.consumer_key, Settings.social.foursquare.consumer_secret
   end
 end
