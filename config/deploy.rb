@@ -77,14 +77,16 @@ def set_env
   raise "#{settings_yml} is not exist" unless File.exist? settings_yml
   settings = YAML.load(File.read(settings_yml))
   puts "Settings : #{settings}"
-  default_environment['TWITTER_KEY']     = settings["social"]["twitter"]["consumer_key"]
-  default_environment['TWITTER_SECRET']  = settings["social"]["twitter"]["consumer_secret"]
-  default_environment['FACEBOOK_KEY']    = settings["social"]["facebook"]["consumer_key"]
-  default_environment['FACEBOOK_SECRET'] = settings["social"]["facebook"]["consumer_secret"]
-  default_environment['GOOGLE_KEY']      = settings["social"]["google"]["consumer_key"]
-  default_environment['GOOGLE_SECRET']   = settings["social"]["google"]["consumer_secret"]
+  default_environment['TWITTER_KEY']        = settings["social"]["twitter"]["consumer_key"]
+  default_environment['TWITTER_SECRET']     = settings["social"]["twitter"]["consumer_secret"]
+  default_environment['FACEBOOK_KEY']       = settings["social"]["facebook"]["consumer_key"]
+  default_environment['FACEBOOK_SECRET']    = settings["social"]["facebook"]["consumer_secret"]
+  default_environment['GOOGLE_KEY']         = settings["social"]["google"]["consumer_key"]
+  default_environment['GOOGLE_SECRET']      = settings["social"]["google"]["consumer_secret"]
   default_environment['INSTAGRAM_KEY']      = settings["social"]["instagram"]["consumer_key"]
   default_environment['INSTAGRAM_SECRET']   = settings["social"]["instagram"]["consumer_secret"]
+  default_environment['FOURSQUARE_KEY']     = settings["social"]["foursquare"]["consumer_key"]
+  default_environment['FOURSQUARE_SECRET']  = settings["social"]["foursquare"]["consumer_secret"]
 
   puts "--- complete set_env"
 end

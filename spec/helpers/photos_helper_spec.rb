@@ -10,15 +10,19 @@ describe PhotosHelper do
       subject{ helper.icon_class('facebook') }
       it { should eq('icon-facebook') }
     end
-    context "twitter" do
+    context "google_oauth2" do
       subject{ helper.icon_class('google_oauth2') }
       it { should eq('icon-google-plus') }
     end
-    context "twitter" do
+    context "instagram" do
       subject{ helper.icon_class('instagram') }
       it { should eq('icon-instagram') }
     end
-    context "twitter" do
+    context "foursquare" do
+      subject{ helper.icon_class('foursquare') }
+      it { should eq('icon-foursquare') }
+    end
+    context "other" do
       subject{ helper.icon_class('hoge') }
       it { should eq('icon-question') }
     end

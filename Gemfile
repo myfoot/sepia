@@ -31,6 +31,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-instagram'
+gem 'omniauth-foursquare'
 gem 'protected_attributes'
 
 #for view
@@ -55,6 +56,7 @@ gem 'kaminari'
 gem 'koala', "~> 1.7.0rc1" # facebook
 gem 'twitter'
 gem 'instagram'
+gem 'foursquare2'
 
 gem 'mysql2', group: [:production, :development]
 
