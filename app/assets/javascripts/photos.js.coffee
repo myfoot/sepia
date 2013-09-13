@@ -39,7 +39,8 @@ $('#load-link').bind 'click', ->
     template = _.template($('#photo-template').html())
     polaroids = ""
     _.each data.photos, (photo, i) ->
-      polaroids += template(url: photo.thumbnail_url, message: photo.message, page: data.page, posted_at: photo.posted_at, provider: photo.provider)
+      polaroids += template(url: photo.thumbnail_url, message: photo.message, page: data.page,\
+                            posted_at: photo.posted_at, provider: photo.provider, icon_class: photo.icon_class)
 
     polaroidsObj = $(polaroids)
     $(parent).append(polaroidsObj)
