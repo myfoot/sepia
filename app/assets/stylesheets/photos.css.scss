@@ -48,9 +48,9 @@ h1 {
                 background: #fff;
                 display: inline;
                 float: left;
-                margin: 0 0 27px 25px;
+                margin: 0 0 27px 20px;
                 max-width: $polaroid-width;
-                padding: 10px 10px 15px;
+                padding: 15px 12px 15px;
                 text-decoration: none;
                 color: #333;
                 font-size: 14px;
@@ -60,6 +60,12 @@ h1 {
                 @include box-shadow(rgba(0,0,0,.25) 0 3px 6px);
                 @include rotate(-2deg);
                 @include transition(transform .15s linear, border-color .6s linear);
+
+                .provider-icon {
+                    position: absolute;
+                    top: 1px;
+                    left: 1px;
+                }
 
                 .message {
                     margin: 0px;
@@ -110,6 +116,11 @@ h1 {
             .frame-instagram {
                 &:hover {
                     border-color: #3f729b;
+                }
+            }
+            .frame-foursquare {
+                &:hover {
+                    border-color: #44a8e0;
                 }
             }
         }

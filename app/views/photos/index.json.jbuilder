@@ -5,6 +5,7 @@ json.photos @photos do |photo|
   json.message photo.message.html_safe
   json.posted_at format_time(photo.posted_at)
   json.provider photo.provider
+  json.icon_class icon_class(photo.provider)
 end
 
 json.page params[:page]
