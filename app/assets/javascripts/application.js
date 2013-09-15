@@ -12,12 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.mousewheel.min
 //= require twitter/bootstrap
 //= require jquery.unveil.min
 //= require underscore
 //= require main
 //= require album
 //= require trunk8.min
+//= require jquery.fancybox-1.3.4
 
 _.templateSettings = {
     evaluate:    /\%\{=(.+?)\}/g,
