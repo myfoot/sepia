@@ -30,7 +30,7 @@ module Clients
           offset += data.size
           photos.concat data.select{|p| (!last_date || last_date.localtime < p.published_at) }
 
-          break if data.size < MAX_PER_PAGE || tmp.size < data.size
+          break if data.size < MAX_PER_PAGE || photos.size < offset
         end
 
         photos.map{|p| photo(p) }
