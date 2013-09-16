@@ -31,7 +31,7 @@ describe Photo do
           expect(photo).not_to be_valid
         end
       end
-      context "same provider and plaftom_id" do
+      context "same provider and plaftom_id and user_id" do
         before do 
           photo.save
         end
