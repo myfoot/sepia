@@ -7,6 +7,13 @@
     z-index: 5;
 }
 
+@mixin hover-pointer {
+    cursor: pointer;
+    &:hover {
+        color: rgb(139, 139, 139);
+    }
+}
+
 $polaroid-width: 190px;
 
 h1 {
@@ -70,6 +77,21 @@ h1 {
                     left: 1px;
                 }
 
+                .icon-trash {
+                    position: absolute;
+                    top: 1px;
+                    right: 1px;
+                    color: #333;
+                    text-decoration: none;
+                    opacity: 0;
+                    @include transition(opacity .6s linear);
+                    @include hover-pointer;
+                }
+
+                &:hover .icon-trash {
+                    opacity: 1;
+                }
+
                 .message {
                     margin: 0px;
                     text-align: center;
@@ -81,10 +103,7 @@ h1 {
                 }
 
                 .message-toggle {
-                    cursor: pointer;
-                    &:hover {
-                        color: rgb(139, 139, 139);
-                    }
+                    @include hover-pointer;
                 }
 
                 &:hover {
