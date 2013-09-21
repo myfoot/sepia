@@ -16,26 +16,18 @@ div style="float: left;"
       = text_field_tag :'photo_ids[]'
       = submit_tag :do, class: :btn
 
-div style="float: left; margin-left: 60px; margin-bottom: 30px;"
-  h4 delete
-  = form_tag(album_photos_path(album_id: params[:id], format: :json), method: :delete) do
-    fieldset
-      label="PhotoID"
-      = text_field_tag :'photo_ids[]'
-      label="PhotoID"
-      = text_field_tag :'photo_ids[]'
-      = submit_tag :do, class: :btn
-
 #photos style="clear: both;"
   ul#polaroids
     - @album.photos.each do |photo|
         li
           div class="polaroid frame-#{photo.provider}" data-original-title=format_time(photo.posted_at) data-content==""
             i class="provider-icon #{icon_class(photo.provider)}"
+            = link_to 'javaScript:void(0)', :'album-id' => params[:id], :'photo-ids' => [photo.id], token: form_authenticity_token, class: 'photo-trash' do
+              i.icon-trash.icon-large
             = link_to photo.fullsize_url, class: "display-link", rel: 'photo-group', title: photo.message do
               = lazy_image_tag(photo.thumbnail_url, class: 'img-photo', :'data-page' => 1)
             .message
               span.message-short == photo.message
 
+= javascript_include_tag "albums"
 = javascript_include_tag "photos"
-
