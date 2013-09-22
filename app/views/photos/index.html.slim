@@ -18,7 +18,7 @@ h1
   ul#polaroids
     - @photos.each do |photo|
         li
-          div class="polaroid frame-#{photo.provider}" data-original-title=format_time(photo.posted_at) data-content==""
+          div class="rotate polaroid frame-#{photo.provider}" data-original-title=format_time(photo.posted_at) data-content==""
             i class="provider-icon #{icon_class(photo.provider)}"
             = link_to photo.fullsize_url, class: "display-link", rel: 'photo-group', title: photo.message do
               = lazy_image_tag(photo.thumbnail_url, class: 'img-photo', :'data-page' => 1)
@@ -33,7 +33,7 @@ h1
 
 script#photo-template type="text/template"
   li
-    div class="polaroid frame-%{ provider }" data-original-title="%{ posted_at }" data-content=""
+    div class="rotate polaroid frame-%{ provider }" data-original-title="%{ posted_at }" data-content=""
       i class="provider-icon %{ icon_class }"
       = link_to '%{ fullsize_url }', class: "display-link", rel: 'photo-group', title: '%{ message }' do
         = lazy_image_tag('%{ thumbnail_url }', class: 'img-photo', :'data-page' => '%{ page }')

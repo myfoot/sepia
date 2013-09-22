@@ -7,6 +7,13 @@
     z-index: 5;
 }
 
+@mixin hover-pointer {
+    cursor: pointer;
+    &:hover {
+        color: rgb(139, 139, 139);
+    }
+}
+
 $polaroid-width: 190px;
 
 h1 {
@@ -20,26 +27,30 @@ h1 {
         li {
             @include inline-block;
 
-            &:nth-child(even) .polaroid {
+            .rotate {
+                @include rotate(-2deg);
+            }
+
+            &:nth-child(even) .rotate {
                 @include rotate(2deg);
             }
 
-            &:nth-child(3n) .polaroid {
+            &:nth-child(3n) .rotate {
                 @include transform(none);
                 top: -5px;
             }
 
-            &:nth-child(5n) .polaroid {
+            &:nth-child(5n) .rotate {
                 @include rotate(5deg);
                 right: 5px;
             }
 
-            &:nth-child(8n) .polaroid {
+            &:nth-child(8n) .rotate {
                 right: 5px;
                 top: 8px;
             }
 
-            &:nth-child(11n) .polaroid {
+            &:nth-child(11n) .rotate {
                 left: -5px;
                 top: 3px;
             }
@@ -58,13 +69,27 @@ h1 {
                 border: #ffffff solid 5px;
 
                 @include box-shadow(rgba(0,0,0,.25) 0 3px 6px);
-                @include rotate(-2deg);
                 @include transition(transform .15s linear, border-color .6s linear);
 
                 .provider-icon {
                     position: absolute;
                     top: 1px;
                     left: 1px;
+                }
+
+                .icon-trash {
+                    position: absolute;
+                    top: 1px;
+                    right: 1px;
+                    color: #333;
+                    text-decoration: none;
+                    opacity: 0;
+                    @include transition(opacity .6s linear);
+                    @include hover-pointer;
+                }
+
+                &:hover .icon-trash {
+                    opacity: 1;
                 }
 
                 .message {
@@ -78,10 +103,7 @@ h1 {
                 }
 
                 .message-toggle {
-                    cursor: pointer;
-                    &:hover {
-                        color: rgb(139, 139, 139);
-                    }
+                    @include hover-pointer;
                 }
 
                 &:hover {

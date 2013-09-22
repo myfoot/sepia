@@ -40,6 +40,16 @@ $(formId).submit (event) ->
 
   undefined
 
+$('.photo-trash').bind 'click', ->
+  $link = $(this)
+  $link.css('display', 'none')
+  new Album($link.attr('album-id')).delete_photos($link.attr('token'), $link.attr('photo-ids'))
+  .done (data) ->
+    $link.closest('li').animate width: 'hide', height: 'hide', opacity: 'hide', 'slow', -> $(this).remove()
+  .fail (res) ->
+    # TODO エラー時の見せ方
+    console.log(res.responseJSON)
+    $link.css('display', 'inline')
 
 apply_unveil = (page) -> $(".img-block img[data-page='#{page}']").unveil(0)
 apply_unveil(1)
