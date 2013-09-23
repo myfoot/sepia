@@ -13,6 +13,8 @@ button.btn.btn-primary data-toggle="modal" href="#create-form"
   ul#albums.thumbnails
     - @albums.each do |album|
       li.album
+        = link_to 'javaScript:void(0)', :'data-album-id' => album.id, class: 'album-trash' do
+          i.icon-trash.icon-large
         = link_to url_for(album), class: "img-link" do
           .img-block
             - if album.photos.empty?
@@ -57,6 +59,8 @@ button.btn.btn-primary data-toggle="modal" href="#create-form"
 
 script#album-template type="text/template"
   li.album
+    = link_to 'javaScript:void(0)', :'data-album-id' => '%{ id }', class: 'album-trash' do
+      i.icon-trash.icon-large
     = link_to '%{ url }', class: "img-link" do
       .img-block
         span class='%{ stack_class }'
