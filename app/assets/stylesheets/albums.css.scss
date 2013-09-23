@@ -17,6 +17,7 @@
     display: table;
 
     .album {
+        position: relative;
         max-width: 200px;
         display: inline-table;
         vertical-align: top;
@@ -121,6 +122,25 @@
             font-size: 0.1em;
             color: gray;
             text-align: right;
+        }
+
+        // TODO photo.scssのicon-trashと共通化(&hover .icon-trashの共通化が悩みどころ)
+        .icon-trash {
+            position: absolute;
+            bottom: 1px;
+            left: 5px;
+            color: #333;
+            text-decoration: none;
+            opacity: 0;
+            @include transition(opacity .6s linear);
+            cursor: pointer;
+            &:hover {
+                color: rgb(139, 139, 139);
+            }
+        }
+
+        &:hover .icon-trash {
+            opacity: 1;
         }
     }
 }
