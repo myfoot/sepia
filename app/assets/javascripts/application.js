@@ -20,6 +20,7 @@
 //= require album
 //= require trunk8.min
 //= require jquery.fancybox-1.3.4
+//= require jquery.toast
 
 _.templateSettings = {
     evaluate:    /\%\{=(.+?)\}/g,

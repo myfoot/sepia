@@ -1,4 +1,3 @@
-
 class Album
   constructor: (id) ->
     @id = id
@@ -12,11 +11,19 @@ class Album
   delete: =>
     $.ajax(type: 'DELETE', url: "/albums/#{@id}.json", dataType: 'json')
 
-  delete_photos: (photo_ids) =>
+  add_photos: (photoIds) =>
+    $.ajax
+      type: 'POST',
+      url: "/albums/#{@id}/photos.json",
+      data: {photo_ids: photoIds}
+      dataType: 'json'
+      timeout: 10000,
+
+  delete_photos: (photoIds) =>
     $.ajax
       type: 'DELETE',
       url: "/albums/#{@id}/photos.json",
-      data: {photo_ids: photo_ids}
+      data: {photo_ids: photoIds}
       dataType: 'json'
       timeout: 10000,
 
