@@ -40,17 +40,27 @@ $(formId).submit (event) ->
 
   undefined
 
-$('.photo-trash').bind 'click', ->
-  if confirm('Is this photograph deleted from an album?')
-    $link = $(this)
-    $link.css('display', 'none')
-    new Album($link.data('album-id')).delete_photos($link.data('photo-ids'))
-    .done (data) ->
-      $link.closest('li').animate width: 'hide', height: 'hide', opacity: 'hide', 'slow', -> $(this).remove()
-    .fail (res) ->
-      # TODO エラー時の見せ方
-      console.log(res.responseJSON)
-      $link.css('display', '')
+apply_delete = ($link, $promise) ->
+  $link.css('display', 'none')
+  $promise
+  .done (data) ->
+    $link.closest('li').animate width: 'hide', height: 'hide', opacity: 'hide', 'slow', -> $(this).remove()
+  .fail (res) ->
+    # TODO エラー時の見せ方
+    console.log(res.responseJSON)
+    $link.css('display', '')
+
+do ->
+  $('#photos').on 'click', '.photo-trash', ->
+    if confirm('Is this photo deleted from an album?')
+      $link = $(this)
+      apply_delete($link, new Album($link.data('album-id')).delete_photos($link.data('photo-ids')))
+
+do ->
+  $('#albums').on 'click', '.album-trash', ->
+    if confirm('Is this album deleted?')
+      $link = $(this)
+      apply_delete($link, new Album($link.data('album-id')).delete())
 
 apply_unveil = (page) -> $(".img-block img[data-page='#{page}']").unveil(0)
 apply_unveil(1)
@@ -65,7 +75,7 @@ $('#load-link').bind 'click', ->
     append_albums = ''
     _.each data.albums, (album, i) ->
       stack_class = if album.size < 1 then 'simple' else 'stack'
-      append_albums += template(page: data.page, url: album.url, image_url: album.image_url, name: album.name, size: album.size, updated_at: album.updated_at, stack_class: stack_class)
+      append_albums += template(id: album.id, page: data.page, url: album.url, image_url: album.image_url, name: album.name, size: album.size, updated_at: album.updated_at, stack_class: stack_class)
     $(parent).append(append_albums)
 
     apply_unveil(data.page)
