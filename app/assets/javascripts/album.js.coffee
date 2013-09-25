@@ -9,6 +9,9 @@ class Album
   update: (name) =>
     $.ajax(type: 'PUT', url: "/albums/#{@id}.json", data: { album: { name: name } }, dataType: 'json')
 
+  delete: =>
+    $.ajax(type: 'DELETE', url: "/albums/#{@id}.json", dataType: 'json')
+
   delete_photos: (photo_ids) =>
     $.ajax
       type: 'DELETE',
