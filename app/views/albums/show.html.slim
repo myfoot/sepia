@@ -6,17 +6,7 @@ h1
   | &nbsp;
   = @album.name
 
-div style="float: left;"
-  h4 add
-  = form_tag album_photos_path(album_id: params[:id], format: :json) do
-    fieldset
-      label="PhotoID"
-      = text_field_tag :'photo_ids[]'
-      label="PhotoID"
-      = text_field_tag :'photo_ids[]'
-      = submit_tag :do, class: :btn
-
-#photos style="clear: both;"
+#photos style="clear: both;" data-album-id=params[:id]
   ul#polaroids
     - @album.photos.each do |photo|
         li
@@ -28,6 +18,15 @@ div style="float: left;"
               = lazy_image_tag(photo.thumbnail_url, class: 'img-photo', :'data-page' => 1)
             .message
               span.message-short == photo.message
+
+button#toggle-candidate.btn.btn-primary Add photo
+#add-candidate data-url=photos_path(format: :json)
+  #candidate-photos
+  #more-candidate
+    = link_to 'more', 'javaScript:void(0)', id: "load-candidate-link", :'data-current-page' => 0, :'data-url' => "#{photos_path(format: :json)}", class: "btn"
+
+script#candidate-template type="text/template"
+  = lazy_image_tag('%{ thumbnail_url }', class: 'img-photo', :'data-photo-id' => '%{ id }', :'data-candidate-page' => '%{ page }')
 
 = javascript_include_tag "albums"
 = javascript_include_tag "photos"
