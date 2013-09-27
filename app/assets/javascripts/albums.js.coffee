@@ -82,7 +82,6 @@ $('#load-link').bind 'click', ->
     $link.attr 'data-current-page', data.page
     $link.hide() if data.page * 25 >= data.all_count
 
-
 $('.title-edit').on 'click', ->
   album_id = $(this).data('album-id')
   title =  $("#title-#{album_id}")
@@ -103,3 +102,61 @@ $('.title-edit').on 'click', ->
         text.off('keypress.title-edit').hide()
         header.fadeIn()
 
+load_candidates = (page, done_handler) ->
+  $.get($('#add-candidate').data('url'), page: page)
+  .done (data) ->
+    parent = $('#candidate-photos')
+    template = _.template($('#candidate-template').html())
+    candidate_photos = ''
+    _.each data.photos, (photo, i) ->
+      candidate_photos += template(id: photo.id, page: data.page, thumbnail_url: photo.thumbnail_url)
+    $(parent).append(candidate_photos)
+    $("#add-candidate img[data-candidate-page='#{data.page}']").unveil(0)
+    done_handler(data) if done_handler
+
+$('#load-candidate-link').on 'click', ->
+  $link = $(this)
+  currentPage = $link.attr('data-current-page') - 0
+  load_candidates(currentPage + 1, (data) ->
+    $link.attr 'data-current-page', data.page
+    # TODO '50'のベタ書き。photos.coffeeにもあるが、Settingsを参照したい
+    $link.hide() if data.page * 50 >= data.all_count
+  )
+
+$('#toggle-candidate').on 'click', ->
+  $candidate = $('#add-candidate')
+  $candidate.animate(height: 'toggle', 500, 'swing', ->
+    text = if $candidate.css('display') == 'none' then 'Add photo' else 'Close'
+    $('#toggle-candidate').html(text)
+  )
+
+do ->
+  mimeType = 'text/plain'
+  dragImgCssClass = 'drag-img-active'
+  dropCssClass = 'drop-area-notice'
+  $dragArea = $('#add-candidate')
+  $dropArea = $('#photos')
+
+  $dragArea.on 'dragstart', 'img', (event) ->
+    $(this).addClass(dragImgCssClass)
+    $dropArea.addClass(dropCssClass)
+    event.originalEvent.dataTransfer.setData(mimeType, $(this).data('photo-id'))
+
+  $dragArea.on 'dragend', 'img', (event) ->
+    $(this).removeClass(dragImgCssClass)
+    $dropArea.removeClass(dropCssClass)
+
+  $dropArea.on 'dragover', (event) ->
+    event.preventDefault()
+
+  $dropArea.on 'drop', (event) ->
+    new Album($(this).data('album-id'))
+    .add_photos([event.originalEvent.dataTransfer.getData(mimeType)])
+    .done (data) ->
+      $.toast('Photo was added.', duration: 3000, type: 'success')
+    .fail (res) ->
+      $.toast('Photo was not able to add.', duration: 5000, type: 'danger')
+    .always ->
+      $($dragArea, 'img').removeClass(dragImgCssClass)
+      $(this).removeClass(dropCssClass)
+    event.preventDefault()
