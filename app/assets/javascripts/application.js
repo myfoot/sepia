@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.mousewheel.min
 //= require twitter/bootstrap
+//= require bootstrap-switch
 //= require jquery.unveil.min
 //= require underscore
 //= require main

@@ -54,4 +54,20 @@ describe Album do
       end
     end
   end
+
+  describe '#public?' do
+    subject { Album.find(@id).public? }
+    context "public is true" do
+      before do
+        @id = Album.create!(user_id: user.id, name: 'hoge-album', public: true).id
+      end
+      it { should be_true }
+    end
+    context "public is false" do
+      before do
+        @id = Album.create!(user_id: user.id, name: 'hoge-album', public: false).id
+      end
+      it { should be_false }
+    end
+  end
 end

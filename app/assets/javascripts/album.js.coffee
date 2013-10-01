@@ -5,8 +5,8 @@ class Album
   show_url: =>
     "/albums/#{@id}"
 
-  update: (name) =>
-    $.ajax(type: 'PUT', url: "/albums/#{@id}.json", data: { album: { name: name } }, dataType: 'json')
+  update: (data) =>
+    $.ajax(type: 'PUT', url: "/albums/#{@id}.json", data: { album: data }, dataType: 'json')
 
   delete: =>
     $.ajax(type: 'DELETE', url: "/albums/#{@id}.json", dataType: 'json')
