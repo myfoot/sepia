@@ -39,6 +39,7 @@ gem 'slim-rails'
 gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
+gem "bootstrap-switch-rails"
 gem 'underscore-rails'
 
 # for background job

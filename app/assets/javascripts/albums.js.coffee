@@ -95,7 +95,7 @@ $('.title-edit').on 'click', ->
     if event.which == 13
       text = $(this)
       new Album(album_id)
-      .update(text.val())
+      .update(name: text.val())
       .done (data) ->
         title.html text.val()
       .always ->
@@ -160,3 +160,11 @@ do ->
       $($dragArea, 'img').removeClass(dragImgCssClass)
       $(this).removeClass(dropCssClass)
     event.preventDefault()
+
+$('#album-visibility').on 'switch-change', (e, data) ->
+  $switch = $(this);
+  new Album($switch.data('album-id'))
+  .update(public: data.value)
+  .fail (res) ->
+    alert('failed to update visibility')
+    

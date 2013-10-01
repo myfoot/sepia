@@ -1,7 +1,8 @@
 class AlbumsController < ApplicationController
   include Paginate
   before_action :authenticate_user!
-  before_action :check_viewable
+  before_action :check_viewable, only: [:show]
+  before_action :check_own, only: [:update, :destroy]
 
   def index
     @albums =
@@ -24,7 +25,7 @@ class AlbumsController < ApplicationController
 
   def update
     @album = current_user.albums.find(params[:id])
-    @album.name = album[:name]
+    album.each{ |(key, value)| @album.send("#{key}=", value) }
     @album.save!
   end
 
@@ -34,12 +35,24 @@ class AlbumsController < ApplicationController
   end
 
   private
-  def check_viewable
-    if params[:id] && (album = Album.find_by(id: params[:id]))
-      head :forbidden if current_user.id != album.user_id
-    end
+  def check_own
+    head :forbidden unless own_album? params[:id]
   end
+
+  def check_viewable
+    head :forbidden unless own_album?(params[:id]) or public_album?(params[:id])
+  end
+
   def album
-    params.require(:album).permit(:name)
+    params.require(:album).permit(:name, :public)
+  end
+
+  def public_album? id
+    target = Album.find_by(id: id)
+    target && target.public?
+  end
+
+  def own_album? id
+    id && (album = Album.find_by(id: id)) ? current_user.id == album.user_id : false;
   end
 end
