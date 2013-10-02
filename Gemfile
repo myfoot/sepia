@@ -16,8 +16,7 @@ gem 'redis-rails', '3.2.3'
 gem 'rails_config'
 
 gem 'sass-rails', '~> 4.0.0.rc1'
-# rails4では標準のcompass-railsではエラーになる
-gem 'compass-rails', github: "milgner/compass-rails", branch: "rails4"
+gem 'compass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
