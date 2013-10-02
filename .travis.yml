@@ -4,7 +4,7 @@ rvm:
 gemfile:
   - Gemfile
 before_install:
-  - gem install bundler --pre
+  - gem install bundler -v 1.4.0.pre.2 --pre
 bundler_args: '--jobs=4 --without deployment production development'
 before_script:
   - cp config/settings.yml.sample config/settings.yml
