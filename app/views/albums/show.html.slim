@@ -5,6 +5,11 @@ h1
   i.icon-film
   | &nbsp;
   = @album.name
+div#album-visibility.make-switch.switch-small data-on="success" data-off="warning" data-on-label="public" data-off-label="private" data-album-id="#{@album.id}"
+  - if @album.public?
+    input type="checkbox" checked="checked"
+  - else
+    input type="checkbox"
 
 #photos style="clear: both;" data-album-id=params[:id]
   ul#polaroids
