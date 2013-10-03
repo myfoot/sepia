@@ -16,7 +16,8 @@ class AlbumsController < ApplicationController
   end
 
   def show
-    @album = current_user.albums.find(params[:id])
+    @album = Album.find(params[:id])
+    render layout: "public" unless @album.owner? current_user
   end
 
   def create

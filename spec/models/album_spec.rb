@@ -70,4 +70,16 @@ describe Album do
       it { should be_false }
     end
   end
+
+  describe "#owner?" do
+    subject{ album.owner?(@user) }
+    context "受け取ったUserのIDがアルバムのUserIDと一致する場合" do
+      before { @user = user }
+      it { should be_true }
+    end
+    context "受け取ったUserのIDがアルバムのUserIDと一致しない場合" do 
+      before { @user = user2 }
+      it { should be_false }
+    end
+  end
 end

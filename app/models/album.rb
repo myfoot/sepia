@@ -4,4 +4,8 @@ class Album < ActiveRecord::Base
   has_many :photos, through: :albums_photos
 
   validates :name, presence: true
+
+  def owner? user
+    user.id == self.user_id
+  end
 end

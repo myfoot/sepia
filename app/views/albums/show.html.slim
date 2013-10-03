@@ -1,15 +1,20 @@
-= link_to albums_path do
-  i.icon-arrow-left
-  | &nbsp; Back to album list
+ruby:
+  own_album = @album.owner? current_user
+
+- if own_album
+  = link_to albums_path do
+    i.icon-arrow-left
+    | &nbsp; Back to album list
 h1
   i.icon-film
   | &nbsp;
   = @album.name
-div#album-visibility.make-switch.switch-small data-on="success" data-off="warning" data-on-label="public" data-off-label="private" data-album-id="#{@album.id}"
-  - if @album.public?
-    input type="checkbox" checked="checked"
-  - else
-    input type="checkbox"
+- if own_album
+  div#album-visibility.make-switch.switch-small data-on="success" data-off="warning" data-on-label="public" data-off-label="private" data-album-id="#{@album.id}"
+    - if @album.public?
+      input type="checkbox" checked="checked"
+    - else
+      input type="checkbox"
 
 #photos style="clear: both;" data-album-id=params[:id]
   ul#polaroids
@@ -24,11 +29,12 @@ div#album-visibility.make-switch.switch-small data-on="success" data-off="warnin
             .message
               span.message-short == photo.message
 
-button#toggle-candidate.btn.btn-primary Add photo
-#add-candidate data-url=photos_path(format: :json)
-  #candidate-photos
-  #more-candidate
-    = link_to 'more', 'javaScript:void(0)', id: "load-candidate-link", :'data-current-page' => 0, :'data-url' => "#{photos_path(format: :json)}", class: "btn"
+- if own_album
+  button#toggle-candidate.btn.btn-primary Add photo
+  #add-candidate data-url=photos_path(format: :json)
+    #candidate-photos
+    #more-candidate
+      = link_to 'more', 'javaScript:void(0)', id: "load-candidate-link", :'data-current-page' => 0, :'data-url' => "#{photos_path(format: :json)}", class: "btn"
 
 script#candidate-template type="text/template"
   = lazy_image_tag('%{ thumbnail_url }', class: 'img-photo', :'data-photo-id' => '%{ id }', :'data-candidate-page' => '%{ page }')
