@@ -4,7 +4,7 @@
     @include scale(1.25);
     @include box-shadow(rgba(0,0,0,.5) 0 3px 6px);
     position: relative;
-    z-index: 5;
+    z-index: 999;
 }
 
 @mixin hover-pointer {
