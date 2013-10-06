@@ -102,33 +102,36 @@ $('.title-edit').on 'click', ->
         text.off('keypress.title-edit').hide()
         header.fadeIn()
 
-load_candidates = (page, done_handler) ->
-  $.get($('#add-candidate').data('url'), page: page)
+$('#load-candidate-link').on 'click', ->
+  $link = $(this)
+  $parent = $link.parent()
+  $.get($('#add-candidate').data('url'), page: ($link.attr('data-current-page') - 0) + 1)
   .done (data) ->
     parent = $('#candidate-photos')
     template = _.template($('#candidate-template').html())
     candidate_photos = ''
     _.each data.photos, (photo, i) ->
       candidate_photos += template(id: photo.id, page: data.page, thumbnail_url: photo.thumbnail_url)
-    $(parent).append(candidate_photos)
-    $("#add-candidate img[data-candidate-page='#{data.page}']").unveil(0)
-    done_handler(data) if done_handler
+    parent.append(candidate_photos)
 
-$('#load-candidate-link').on 'click', ->
-  $link = $(this)
-  currentPage = $link.attr('data-current-page') - 0
-  load_candidates(currentPage + 1, (data) ->
+    $("#add-candidate img[data-candidate-page='#{data.page}']").unveil(0)
     $link.attr 'data-current-page', data.page
+    $parent.appendTo($('#candidate-photos'))
     # TODO '50'のベタ書き。photos.coffeeにもあるが、Settingsを参照したい
     $link.hide() if data.page * 50 >= data.all_count
-  )
 
-$('#toggle-candidate').on 'click', ->
-  $candidate = $('#add-candidate')
-  $candidate.animate(height: 'toggle', 500, 'swing', ->
-    text = if $candidate.css('display') == 'none' then 'Add photo' else 'Close'
-    $('#toggle-candidate').html(text)
-  )
+do ->
+  init = true
+  $('#toggle-candidate').on 'click', ->
+    $candidate = $('#add-candidate')
+    $candidate.animate(height: 'toggle', 500, 'swing', ->
+      text = if $candidate.css('display') == 'none' then 'Add photo' else 'Close'
+      $('#toggle-candidate').html(text)
+    )
+    if init
+      $('#more-candidate').show()
+      $('#load-candidate-link').click()
+    init = false
 
 do ->
   mimeType = 'text/plain'
