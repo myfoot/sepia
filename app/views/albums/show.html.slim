@@ -30,8 +30,8 @@ h1
               span.message-short == photo.message
 
 - if own_album
-  div style="text-align: center;"
-    button#toggle-candidate.btn.btn-primary Add photo
+  div#toggle-candidate
+    i#toggle-candidate-icon.icon-double-angle-up.icon-3x
   #add-candidate data-url=photos_path(format: :json)
     #candidate-photos
       span#more-candidate
