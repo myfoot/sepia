@@ -30,14 +30,15 @@ h1
               span.message-short == photo.message
 
 - if own_album
-  button#toggle-candidate.btn.btn-primary Add photo
+  div style="text-align: center;"
+    button#toggle-candidate.btn.btn-primary Add photo
   #add-candidate data-url=photos_path(format: :json)
     #candidate-photos
-    #more-candidate
-      = link_to 'more', 'javaScript:void(0)', id: "load-candidate-link", :'data-current-page' => 0, :'data-url' => "#{photos_path(format: :json)}", class: "btn"
+      span#more-candidate
+        = link_to 'more', 'javaScript:void(0)', id: "load-candidate-link", :'data-current-page' => 0, :'data-url' => "#{photos_path(format: :json)}", class: "btn"
 
 script#candidate-template type="text/template"
-  = lazy_image_tag('%{ thumbnail_url }', class: 'img-photo', :'data-photo-id' => '%{ id }', :'data-candidate-page' => '%{ page }')
+  = lazy_image_tag('%{ thumbnail_url }', id: 'candidate-%{ id }', class: 'img-photo', :'data-photo-id' => '%{ id }', :'data-candidate-page' => '%{ page }')
 
 = javascript_include_tag "albums"
 = javascript_include_tag "photos"
