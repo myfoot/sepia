@@ -124,14 +124,31 @@ do ->
   init = true
   $('#toggle-candidate').on 'click', ->
     $candidate = $('#add-candidate')
+    isClosed = $candidate.css('display') == 'none'
+    iconBottomPos = if isClosed then '110px' else '5px'
+    $(this).animate(bottom: iconBottomPos, 500, 'swing')
+
     $candidate.animate(height: 'toggle', 500, 'swing', ->
-      text = if $candidate.css('display') == 'none' then 'Add photo' else 'Close'
-      $('#toggle-candidate').html(text)
+      $icon = $('#toggle-candidate-icon')
+      if !isClosed # TODO わかりにくい
+        $icon.removeClass('icon-double-angle-down')
+        $icon.addClass('icon-double-angle-up')
+      else
+        $icon.removeClass('icon-double-angle-up')
+        $icon.addClass('icon-double-angle-down')
     )
     if init
       $('#more-candidate').show()
       $('#load-candidate-link').click()
     init = false
+
+do ->
+  $icon = $('#toggle-candidate-icon')
+  hoverClass = 'toggle-candidate-hover'
+  $('#toggle-candidate').hover ->
+    $icon.addClass(hoverClass)
+  , ->
+    $icon.removeClass(hoverClass)
 
 do ->
   mimeType = 'text/plain'
