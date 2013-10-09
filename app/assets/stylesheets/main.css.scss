@@ -1,4 +1,4 @@
-$side-menu-width: 150px;
+$side-menu-width: 40px;
 
 html, body {
     background-color: #EEE;
@@ -6,54 +6,12 @@ html, body {
 }
 
 #wrapper {
-    padding-left: $side-menu-width - 100;
+    padding-left: $side-menu-width;
     height: 100%;
 
     #contents {
         height: 100%;
         padding-bottom: 15px;
         margin: 0 120px 0 45px;
-    }
-
-    #side-menu {
-        width: $side-menu-width - 100;
-        left: 0;
-        position: fixed;
-        overflow: auto;
-        top: 0;
-        bottom: 0;
-        background-color: #333;
-        z-index: 9999;
-        white-space: nowrap;
-
-        .menu-contents {
-            width: $side-menu-width;
-            .nav-list {
-                #avatar {
-                    img {
-                        width: 30px;
-                        height: 30px;
-                        margin: 10px 10px 10px -4px;
-                    }
-                }
-
-                > li > a {
-                    text-shadow: none;
-                    color: #FFF;
-
-                    &:hover {
-                        color: #333;
-                    }
-                }
-
-                .icon-square {
-                    margin-left: -4px;
-                }
-
-                .nav-header {
-                    text-shadow: none;
-                }
-            }
-        }
     }
 }
