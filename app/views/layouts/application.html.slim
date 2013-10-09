@@ -25,7 +25,7 @@ html(lang="en")
 
     - if user_signed_in?
       #wrapper
-        div.box-lid-menu
+        div#box-menu.box-lid-menu
           div.box-lid-icon
           nav
             = link_to image_tag('logo.png'), root_path, id: "logo"
@@ -42,13 +42,11 @@ html(lang="en")
               li= link_to destroy_user_session_path, method: :delete do
                 i.icon-signout.icon-2x
                 | &nbsp;&nbsp;Sign out
-        div.box-lid
-          div.box-lid-content.container-fluid
+        div#box-container.box-lid
+          div#box-content.box-lid-content.container-fluid
             .row-fluid
               .span12
                 = yield
-      javascript:
-        $('.box-lid-menu').boxLid();
     - else
       #contents.container-fluid style="height:100%"
         .container

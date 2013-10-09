@@ -1,13 +1,65 @@
+@import "compass";
+
 $side-menu-width: 40px;
+$bg-color: #EEE;
 
 html, body {
-    background-color: #EEE;
+    background-color: $bg-color;
     height: 100%;
+}
+
+body {
+    .box-lid {
+        @include perspective(5000px !important);
+        min-height: 100%;
+        height: auto !important;
+    }
+    .box-lid-open, .box-lid-menu {
+        background: #333333 !important;
+    }
+    .box-lid-open {
+        .box-lid-content {
+            @include transform(rotateY(-30deg) translateX(150px) !important);
+        }
+    }
 }
 
 #wrapper {
     padding-left: $side-menu-width;
     height: 100%;
+    overflow: scroll;
+
+    #box-menu {
+        .box-lid-icon:before {
+            $box-lid-icon-color: #B4B1B1;
+            background: $box-lid-icon-color !important;
+            box-shadow: 0 0.25em 0 0 $box-lid-icon-color, 0 0.5em 0 0 $box-lid-icon-color !important;
+        }
+
+        #avatar {
+            padding-bottom: 15px;
+        }
+
+        a {
+            color: #999;
+            padding: 4px 15px;
+
+            &:hover {
+                text-decoration: none;
+                color: #DDD;
+                background-color: inherit;
+            }
+        }
+    }
+
+    #box-container {
+        height: 100%;
+
+        #box-content {
+            height: 100%;
+            background-color: $bg-color;
+        }
+    }
 
     #contents {
         height: 100%;
@@ -15,3 +67,4 @@ html, body {
         margin: 0 120px 0 45px;
     }
 }
+
