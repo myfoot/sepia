@@ -29,7 +29,7 @@ h1 Your Status
         dt
           = t(provider)
         dd
-          = button_to user_omniauth_authorize_path(provider, origin: polymorphic_url(@user), user_id: current_user.id), class: "btn btn-primary btn-small" do
+          = button_to user_omniauth_authorize_path(provider, origin: polymorphic_url(@user)), class: "btn btn-primary btn-small" do
             i class="icon-#{icon_class}"
             = " Connect"
 
