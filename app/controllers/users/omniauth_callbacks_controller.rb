@@ -69,7 +69,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def create_and_redirect provider, option
     ActiveRecord::Base.transaction do
-      if (origin = request.env['omniauth.origin']) && (user_id = request.env["omniauth.params"]["user_id"])
+      if (origin = request.env['omniauth.origin']) && (user_id = session[:user_id])
         @user = User.find(user_id)
         @user.add_token_if_not_exist provider, option
         safe_redirect origin
@@ -78,6 +78,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         redirect_to_authentication provider.capitalize
       end
     end
+    session[:user_id] = @user.id if @user
   end
 
   def redirect_to_authentication provider
