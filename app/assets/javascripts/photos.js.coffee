@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$('body').popover(selector: 'div[class=polaroid]', trigger: 'hover')
+$('body').popover(selector: 'ul .polaroid', trigger: 'hover')
 truncate_message = (parent) ->
   messages = if parent? then $('.polaroid .message', parent) else $('.polaroid .message')
   messages.each ->
