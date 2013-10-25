@@ -9,6 +9,10 @@ Sepia::Application.routes.draw do
   end
   resources :users,  only: [:show, :update]
 
+  namespace :public do
+    resources :albums, only: [:show]
+  end
+
   # for devise
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do
