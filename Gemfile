@@ -4,13 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-# 依存先のバージョンがぶつかってる
-# gem 'redis-store', '1.1.3'
-gem 'redis-store', git: "https://github.com/bricker/redis-store.git"
-gem 'redis-actionpack', git: "https://github.com/bricker/redis-store.git"
-gem 'redis-activesupport', git: "https://github.com/bricker/redis-store.git"
-gem 'redis-rack', git: "https://github.com/bricker/redis-store.git"
-gem 'redis-rails', '3.2.3'
+gem 'redis-rails', '4.0.0'
 
 #for settings
 gem 'rails_config'
