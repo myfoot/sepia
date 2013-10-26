@@ -1,5 +1,5 @@
 ruby:
-  own_album = @album.owner? current_user
+  own_album = current_user && @album.owner?(current_user)
 
 - if own_album
   = link_to albums_path do
