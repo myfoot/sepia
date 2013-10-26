@@ -54,6 +54,7 @@ do ->
   $('#photos').on 'click', '.photo-trash', ->
     if confirm('Is this photo deleted from an album?')
       $link = $(this)
+      # TODO 複数削除を考慮して名前を`ids`にしてあるけど、今の持ち方だと自身のidしか持てないんじゃね。HTML側修正
       apply_delete($link, new Album($link.data('album-id')).delete_photos($link.data('photo-ids')))
 
 do ->
@@ -182,9 +183,30 @@ do ->
     event.preventDefault()
 
 $('#album-visibility').on 'switch-change', (e, data) ->
-  $switch = $(this);
+  $switch = $(this)
   new Album($switch.data('album-id'))
   .update(public: data.value)
   .fail (res) ->
     alert('failed to update visibility')
-    
+
+$('#load-photo-link').bind 'click', ->
+  $link = $(this)
+  currentPage = $link.attr('data-current-page') - 0
+  $.get($link.data('url'), page: currentPage+1)
+  .done (data) ->
+    parent = $('#polaroids')
+    album_id = $('#photos').data('album-id')
+    template = _.template($('#photo-template').html())
+    polaroids = ""
+    _.each data.photos, (photo, i) ->
+      polaroids += template(album_id: album_id, thumbnail_url: photo.thumbnail_url, fullsize_url: photo.fullsize_url, message: photo.message, page: data.page,\
+                            posted_at: photo.posted_at, provider: photo.provider, icon_class: photo.icon_class, photo_ids: [photo.id])
+
+    polaroidsObj = $(polaroids)
+    $(parent).append(polaroidsObj)
+    polaroidsObj.each -> SepiaUtil.truncate_message($('.polaroid .message', this))
+
+    $("img.img-photo[data-page='#{data.page}']").unveil(0)
+    $link.attr 'data-current-page', data.page
+    $link.hide() if data.page * 50 >= data.all_count
+    SepiaUtil.apply_fancybox($('.display-link'))
