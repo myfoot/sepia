@@ -5,31 +5,14 @@
 $('body').popover(selector: 'ul .polaroid', trigger: 'hover')
 truncate_message = (parent) ->
   messages = if parent? then $('.polaroid .message', parent) else $('.polaroid .message')
-  messages.each ->
-    message = $(this)
-    short = $(".message-short", message)
-    origin_text = short.text()
-    short.trunk8(lines: 2)
-    if short.attr('title')?
-      message.css('text-align', 'left')
-      message.addClass('message-toggle')
-      message.width(short.width())
-      short_real_length = short.text().length - 1 # truncate '&hellip;'
-      message.append('<p class="message-full">' + origin_text.substr(short_real_length) + '</p>')
-      message.on 'click', ->
-        full = $('.message-full', message)
-        if full.css('display') is 'none'
-          short.text(short.text().substr(0, short_real_length))
-        else
-          short.append('&hellip;')
-        full.slideToggle('middle')
+  SepiaUtil.truncate_message(messages)
 
 truncate_message()
 
 apply_unveil = (page) -> $("img.img-photo[data-page='#{page}']").unveil(0)
 apply_unveil(1)
 
-apply_fancybox = () -> $('.display-link').fancybox(type: 'image', speedIn: 800, speedOut: 200, titlePosition: 'inside', cyclic: true)
+apply_fancybox = () -> SepiaUtil.apply_fancybox($('.display-link'))
 apply_fancybox()
 
 $('#load-link').bind 'click', ->

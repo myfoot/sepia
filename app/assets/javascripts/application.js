@@ -17,6 +17,7 @@
 //= require bootstrap-switch
 //= require jquery.unveil.min
 //= require underscore
+//= require sepia-util.js
 //= require main
 //= require album
 //= require trunk8.min
