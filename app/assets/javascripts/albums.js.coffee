@@ -92,12 +92,12 @@ $('.title-edit').on 'click', ->
   .val(title.html())
   .fadeIn()
   .on 'keypress.title-edit', (event) ->
-    if event.which == 13
+    if event.which == 13 # enter key
       text = $(this)
       new Album(album_id)
       .update(name: text.val())
       .done (data) ->
-        title.html text.val()
+        title.html _.escape(text.val())
       .always ->
         text.off('keypress.title-edit').hide()
         header.fadeIn()
