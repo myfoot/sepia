@@ -1,5 +1,5 @@
 class SepiaUtil
-  truncate_message: ($messages) ->
+  @truncate_message: ($messages) ->
     $messages.each ->
       $message = $(this)
       $short = $(".message-short", $message)
@@ -19,7 +19,7 @@ class SepiaUtil
             $short.append('&hellip;')
           $full.slideToggle('middle')
 
-  apply_fancybox: ($target) ->
+  @apply_fancybox: ($target) ->
     $target.fancybox(type: 'image', speedIn: 800, speedOut: 200, titlePosition: 'inside', cyclic: true)
 
-this.SepiaUtil = new SepiaUtil()
+this.SepiaUtil = SepiaUtil
