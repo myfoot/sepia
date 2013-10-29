@@ -1,4 +1,4 @@
-json.photos @album_photos do |photo|
+json.photos @photos do |photo|
   json.id photo.id
   json.thumbnail_url photo.thumbnail_url
   json.fullsize_url photo.fullsize_url

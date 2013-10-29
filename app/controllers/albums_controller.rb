@@ -17,7 +17,7 @@ class AlbumsController < ApplicationController
 
   def show
     @album = Album.find(params[:id])
-    @album_photos = @album.photos
+    @photos = @album.photos
                       .page(params[:page] || 1)
                       .per(Settings.photos.per_page)
                       .order('posted_at DESC')
