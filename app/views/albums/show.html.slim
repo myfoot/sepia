@@ -1,5 +1,7 @@
 ruby:
   own_album = current_user && @album.owner?(current_user)
+  per_page = Settings.photos.per_page
+  current_page = (params[:page].try(:to_i) || 1)
 
 - if own_album
   = link_to albums_path do
@@ -18,7 +20,7 @@ h1
 
 #photos style="clear: both;" data-album-id=params[:id]
   ul#polaroids
-    - @album.photos.each do |photo|
+    - @photos.each do |photo|
         li
           div class="polaroid frame-#{photo.provider}" data-original-title=format_time(photo.posted_at) data-content==""
             i class="provider-icon #{icon_class(photo.provider)}"
@@ -28,6 +30,21 @@ h1
               = lazy_image_tag(photo.thumbnail_url, class: 'img-photo', :'data-page' => 1)
             .message
               span.message-short == photo.message
+
+- if per_page * current_page < @all_count
+  div#more
+    = link_to 'Show more results', 'javaScript:void(0)', id: "load-photo-link", :'data-current-page' => "#{current_page}", :'data-url' => "#{album_path(id: params[:id], format: :json)}", class: "btn"
+
+script#photo-template type="text/template"
+  li
+    div class="polaroid frame-%{ provider }" data-original-title="%{ posted_at }" data-content=""
+      i class="provider-icon %{ icon_class }"
+      = link_to 'javaScript:void(0)', :'data-album-id' => "%{ album_id }", :'data-photo-ids' => "%{ photo_ids }", class: 'photo-trash' do
+        i.icon-trash.icon-large
+      = link_to '%{ fullsize_url }', class: "display-link", rel: 'photo-group', title: '%{ message }' do
+        = lazy_image_tag('%{ thumbnail_url }', class: 'img-photo', :'data-page' => '%{ page }')
+      .message
+        span.message-short = '%{ message }'
 
 - if own_album
   div#toggle-candidate
