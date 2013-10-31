@@ -65,8 +65,13 @@ script#album-template type="text/template"
       .img-block
         span class='%{ stack_class }'
           = lazy_image_tag('%{ image_url }', :'data-page' => '%{ page }')
-    = link_to '%{ url }' do
-      h4.title = "%{ name } (%{ size })"
+    h4.title id="title-header-%{ id }"
+      = link_to '%{ url }' do
+        span id="title-%{ id }" = '%{ name }'
+        = " (%{ size })"
+    input type="text" id="title-edit-%{ id }" style="display:none;"
+    | &nbsp;
+    i.btn.btn-link.icon-edit.title-edit data-album-id="%{ id }"
     p.date = '%{ updated_at }'
 
 script#error-msg-template type="text/template"
