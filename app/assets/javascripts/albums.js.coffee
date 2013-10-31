@@ -83,7 +83,7 @@ $('#load-link').bind 'click', ->
     $link.attr 'data-current-page', data.page
     $link.hide() if data.page * 25 >= data.all_count
 
-$('.title-edit').on 'click', ->
+$('#albums').on 'click', '.title-edit', ->
   album_id = $(this).data('album-id')
   title =  $("#title-#{album_id}")
   header = $("#title-header-#{album_id}")
