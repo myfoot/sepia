@@ -32,16 +32,22 @@ after "deploy:setup", "setup:fix_permissions"
 
 namespace :deploy do
   task :start, :roles => :app do
-    run "cd #{current_path}; bundle exec unicorn_rails -c config/unicorn.rb -E #{rails_env} -D"
-    run "cd #{current_path}; nohup bundle exec sidekiq -e #{rails_env} -C #{current_path}/config/sidekiq.yml -P #{sidekiq_pid_file} >> #{current_path}/log/sidekiq.log 2>&1 &"
+    # run "cd #{current_path}; bundle exec unicorn_rails -c config/unicorn.rb -E #{rails_env} -D"
+    # run "cd #{current_path}; nohup bundle exec sidekiq -e #{rails_env} -C #{current_path}/config/sidekiq.yml -P #{sidekiq_pid_file} >> #{current_path}/log/sidekiq.log 2>&1 &"
+    sudo "monit start unicorn"
+    sudo "monit start sidekiq"
   end
   task :restart, :roles => :app do
     run "kill -s USR2 `cat #{unicorn_pid_file}`"
-    run "kill -s USR2 `cat #{sidekiq_pid_file}`"
+    # run "cd #{current_path}; bundle exec sidekiqctl stop #{sidekiq_pid_file} 10"
+    # run "cd #{current_path}; nohup bundle exec sidekiq -e #{rails_env} -C #{current_path}/config/sidekiq.yml -P #{sidekiq_pid_file} >> #{current_path}/log/sidekiq.log 2>&1 &"
+    sudo "monit restart sidekiq"
   end
   task :stop, :roles => :app do
-    run "kill -s QUIT `cat #{unicorn_pid_file}`"
-    run "cd #{current_path}; bundle exec sidekiqctl stop #{sidekiq_pid_file} 10"
+    # run "kill -s QUIT `cat #{unicorn_pid_file}`"
+    # run "cd #{current_path}; bundle exec sidekiqctl stop #{sidekiq_pid_file} 10"
+    sudo "monit stop unicorn"
+    sudo "monit stop sidekiq"
   end
 end
 after "deploy:update_code", "deploy:cleanup"
@@ -73,20 +79,6 @@ def set_env
   role :app,     *deploy_settings['host']['app']
   role :db,      *deploy_settings['host']['db'], :primary => true
   role :sidekiq, *deploy_settings['host']['sidekiq']
-
-  raise "#{settings_yml} is not exist" unless File.exist? settings_yml
-  settings = YAML.load(File.read(settings_yml))
-  puts "Settings : #{settings}"
-  default_environment['TWITTER_KEY']        = settings["social"]["twitter"]["consumer_key"]
-  default_environment['TWITTER_SECRET']     = settings["social"]["twitter"]["consumer_secret"]
-  default_environment['FACEBOOK_KEY']       = settings["social"]["facebook"]["consumer_key"]
-  default_environment['FACEBOOK_SECRET']    = settings["social"]["facebook"]["consumer_secret"]
-  default_environment['GOOGLE_KEY']         = settings["social"]["google"]["consumer_key"]
-  default_environment['GOOGLE_SECRET']      = settings["social"]["google"]["consumer_secret"]
-  default_environment['INSTAGRAM_KEY']      = settings["social"]["instagram"]["consumer_key"]
-  default_environment['INSTAGRAM_SECRET']   = settings["social"]["instagram"]["consumer_secret"]
-  default_environment['FOURSQUARE_KEY']     = settings["social"]["foursquare"]["consumer_key"]
-  default_environment['FOURSQUARE_SECRET']  = settings["social"]["foursquare"]["consumer_secret"]
 
   puts "--- complete set_env"
 end
