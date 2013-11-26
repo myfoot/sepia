@@ -38,6 +38,7 @@
                 .simple {
                     img {
                         @include stack-img-base;
+                        height: 200px;
                     }
                 }
 
