@@ -69,20 +69,35 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def create_and_redirect provider, option
     ActiveRecord::Base.transaction do
-      if (origin = request.env['omniauth.origin']) && (user_id = session[:user_id])
-        @user = User.find(user_id)
-        @user.add_token_if_not_exist provider, option
-        safe_redirect origin
+      @user = if (origin = request.env['omniauth.origin']) && (user_id = session[:user_id])
+        connect_and_redirect provider, option, origin, user_id
       else
-        @user = User.find_or_create_by_auth(option.merge({provider: provider}))
-        redirect_to_authentication provider.capitalize
+        signin_and_redirect provider, option
       end
+      session[:user_id] = @user.id if @user
     end
-    session[:user_id] = @user.id if @user
   end
 
-  def redirect_to_authentication provider
+  def connect_and_redirect provider, option, origin, user_id
+    User.find(user_id).tap {|user|
+      unless user.add_token_if_not_exist(provider, option)
+        user.access_tokens.find_by(provider: provider).tap {|token|
+          option.each {|(key, value)| token.send("#{key}=", value) if token.respond_to?("#{key}=") }
+          token.save!
+        }
+      end
+      safe_redirect origin
+    }
+  end
+
+  def signin_and_redirect provider, option
+    User.find_or_create_by_auth(option.merge({provider: provider})).tap {|user|
+      redirect_to_authentication provider.capitalize, user
+    }
+  end
+
+  def redirect_to_authentication provider, user
     flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => provider
-    sign_in_and_redirect @user, :event => :authentication
+    sign_in_and_redirect user, :event => :authentication
   end
 end
