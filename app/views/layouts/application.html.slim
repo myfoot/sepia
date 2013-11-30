@@ -24,29 +24,34 @@ html(lang="en")
     = javascript_include_tag "application"
 
     - if user_signed_in?
-      #wrapper
-        div#box-menu.box-lid-menu
-          div.box-lid-icon
-          nav
-            = link_to image_tag('logo.png'), root_path, id: "logo"
-            ul.nav.nav-list
-              li#avatar= link_to current_user do
-                = image_tag(current_user.avatar_url, size: "50x50")
-                | &nbsp; #{current_user.name}
-              li= link_to root_path do
-                i.icon-picture.icon-2x.icon-square
-                | &nbsp; Photos
-              li= link_to albums_path do
-                i.icon-film.icon-2x.icon-square
-                | &nbsp; Albums
-              li= link_to destroy_user_session_path, method: :delete do
-                i.icon-signout.icon-2x
-                | &nbsp;&nbsp;Sign out
-        div#box-container.box-lid
-          div#box-content.box-lid-content.container-fluid
-            .row-fluid
-              .span12
-                = yield
+      .navbar.navbar-fixed-top
+        .navbar-inner
+          .container-fluid
+            = link_to image_tag('logo.png', size: "135x40"), root_path, style: "padding:0.5px 0px; position: absolute; left: 50%; margin-left: -67.5px;"
+            div
+              .pull-right
+                ul.nav.navbar-text
+                  li= link_to destroy_user_session_path, method: :delete do
+                    i.icon-signout
+                    | &nbsp;&nbsp;Sign out
+                  li= link_to current_user, style: "padding: 0 5px 0 0;" do
+                    = image_tag(current_user.avatar_url, size: "40x40")
+                    | &nbsp; #{current_user.name}
+              ul.nav
+                li= link_to root_path do
+                  i.icon-picture
+                  | &nbsp; Photos
+                li= link_to albums_path do
+                  i.icon-film
+                  | &nbsp; Albums
+              = form_tag root_path, class: "navbar-search" do
+                = text_field :user, :name, placeholder: "User name...", class: "search-query", style: "width:100px"
+
+      #wrapper style="margin-top: 40px;"
+        div.container-fluid
+          .row-fluid
+            .span12
+              = yield
     - else
       #contents.container-fluid style="height:100%"
         .container
