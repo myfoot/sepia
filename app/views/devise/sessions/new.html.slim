@@ -1,6 +1,14 @@
+style
+  | body {
+  |   background-image: url(/images/signin-bg.jpg);
+  |   background-position: center center;
+  |   -moz-background-size: cover;
+  |   background-size: cover;
+  | }
+
 div style='text-align: center; margin-top: 100px; margin-bottom: 100px;'
   = image_tag('logo.png')
-  h3 Please Sign in with ...
+  h3 style="color: #eee;" Please Sign in with ...
   ul.unstyled
     li = link_to "sign in with twitter", user_omniauth_authorize_path(:twitter), class: "zocial twitter", style: "margin-bottom: 10px"
     li = link_to "sign in with facebook", user_omniauth_authorize_path(:facebook), class: 'zocial facebook', style: "margin-bottom: 10px"
