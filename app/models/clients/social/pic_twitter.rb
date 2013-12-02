@@ -9,7 +9,7 @@ module Clients
       PROVIDER = :twitter
 
       def initialize access_token
-        Twitter.configure do |config|
+        Twitter::REST::Client.new do |config|
           config.consumer_key       = Settings.social.twitter.consumer_key
           config.consumer_secret    = Settings.social.twitter.consumer_secret
           config.oauth_token        = access_token.token
@@ -78,7 +78,7 @@ module Clients
           end
           if !last_date || last_date.localtime < tweet.created_at
             tweet.media.each { |image|
-              acc << photo(tweet, image) if image.expanded_url.include?("http://twitter.com/#{@user_name}/status")
+              acc << photo(tweet, image) if image.expanded_url.to_s.include?("http://twitter.com/#{@user_name}/status")
             }
           else
             img_tweets[:finish] = true
