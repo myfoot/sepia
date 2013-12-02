@@ -1,6 +1,8 @@
 language: ruby
 rvm:
   - 2.0.0
+services:
+  - redis-server
 gemfile:
   - Gemfile
 before_install:
