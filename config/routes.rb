@@ -7,7 +7,7 @@ Sepia::Application.routes.draw do
       delete :destroy, on: :collection
     end
   end
-  resources :users,  only: [:show, :update]
+  resources :users,  only: [:show, :update, :index]
 
   namespace :public do
     resources :albums, only: [:show]
