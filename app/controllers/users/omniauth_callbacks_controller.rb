@@ -2,6 +2,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include ControllerHelper
   include AsyncJob
 
+  def failure
+    logger.info "Auth Failure -- path: #{request.path}, message: #{failure_message}"
+    redirect_to :root
+  end
+
   def facebook
     create_and_redirect :facebook, {
       name: auth.info.nickname,
