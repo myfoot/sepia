@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update]
 
   def index
-    @users = params[:name].blank? ? [] : User.like(params[:name]).order(:id).limit(100)
+    @users = user_params[:name].blank? ? [] : User.like(user_params[:name]).order(:id).limit(100)
   end
 
   def show
