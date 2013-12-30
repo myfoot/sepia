@@ -11,5 +11,10 @@
  *= require_self
  *= require_tree .
  */
+@import "compass/css3";
 @import "compass/reset";
 @import "bootstrap2-switch";
+
+.radius-circle {
+  @include border-radius(50%);
+}

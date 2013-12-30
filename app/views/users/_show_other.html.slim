@@ -1,0 +1,34 @@
+- content_for :header
+  = stylesheet_link_tag "justifiedgallery/jquery.justifiedgallery.min.css", :media => "all"
+= javascript_include_tag "justifiedgallery/jquery.justifiedgallery.min.js"
+
+h1 
+  = image_tag "#{@user.avatar_url}", class: "radius-circle", size: "50x50"
+  | &nbsp;
+  = "#{@user.name}"
+  | &nbsp;
+  small new memories
+
+- @user.albums.public.order("updated_at desc").limit(5).each do |album|
+  h2
+    a href="#{url_for(album)}"
+      | #{album.name}
+      span.badge style="vertical-align:top;"
+        ="#{album.photos.size}" 
+  .photos
+    - album.photos.limit(10).each do |photo|
+      a href="#{photo.fullsize_url}" alt="#{photo.message}" target="_blank"
+        img alt="#{photo.message}" src="#{photo.thumbnail_url}"
+
+script
+  | $('.photos').justifiedGallery({
+  |   fixedHeight: 120,
+  |   sizeRangeSuffixes: {
+  |    'lt100':'',
+  |    'lt240':'',
+  |    'lt320':'',
+  |    'lt500':'',
+  |    'lt640':'',
+  |    'lt1024':''
+  |   }
+  | });
