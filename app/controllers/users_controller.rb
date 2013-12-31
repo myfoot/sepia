@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_user, only: [:show, :update]
+  before_action :check_user, only: [:update]
   before_action :set_user, only: [:show, :update]
+
+  def index
+    @users = user_params[:name].blank? ? [] : User.like(user_params[:name]).order(:id).limit(100)
+  end
 
   def show
   end

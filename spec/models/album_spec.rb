@@ -25,6 +25,21 @@ describe Album do
     end
   end
 
+  describe :scope do
+    describe :public do
+      let(:public_album) { Album.new(name: 'hoge-album', public: true) }
+
+      before do
+        user.albums << public_album
+        album
+      end
+
+      it "publicなアルバムのみ取得できる" do
+        expect(user.albums.public).to match_array [public_album]
+      end
+    end
+  end
+
   describe "validation" do
     describe "add photos" do
       context "AlbumのユーザーとPhotoのユーザーが同じ場合" do

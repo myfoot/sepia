@@ -97,4 +97,26 @@ describe User do
     end
   end
 
+  describe :scope do
+    let(:hoge1) { User.create(name: "hoge1", email: "hoge@gmail.com", avatar_url: avatar_url) }
+    let(:hoge2) { User.create(name: "hoge2", email: "hoge@gmail.com", avatar_url: avatar_url) }
+    let(:foo1)  { User.create(name: "foo1", email: "hoge@gmail.com", avatar_url: avatar_url) }
+    let(:foo2)  { User.create(name: "foo2", email: "hoge@gmail.com", avatar_url: avatar_url) }
+
+    describe :like do
+      before do
+        hoge1
+        hoge2
+        foo1
+        foo2
+      end
+      it "nameに部分一致するユーザーが取得できる" do
+        expect(User.like("o").order(:id)).to match_array [hoge1, hoge2, foo1, foo2]
+        expect(User.like("oge").order(:id)).to match_array [hoge1, hoge2]
+        expect(User.like("fo").order(:id)).to match_array [foo1, foo2]
+        expect(User.like("1").order(:id)).to match_array [hoge1, foo1]
+      end
+    end
+  end
+  
 end

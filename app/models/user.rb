@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :photos
   has_many :albums
 
+  scope :like, -> (v) { where("name LIKE ?", "%#{v}%") }
+
   validates :name, presence: true
 
   def add_token_if_not_exist(provider, name: "", uid: "", token: "", secret: "", expired_at: nil, **others)
