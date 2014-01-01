@@ -12,11 +12,10 @@ h1
   | &nbsp;
   = @album.name
 - if own_album
-  div#album-visibility.make-switch.switch-small data-on="success" data-off="warning" data-on-label="public" data-off-label="private" data-album-id="#{@album.id}"
-    - if @album.public?
-      input type="checkbox" checked="checked"
-    - else
-      input type="checkbox"
+  - if @album.public?
+    input#album-visibility.switch-small type="checkbox" data-on="success" data-off="warning" data-on-label="public" data-off-label="private" data-album-id="#{@album.id}" checked="checked"
+  - else
+    input#album-visibility.switch-small type="checkbox" data-on="success" data-off="warning" data-on-label="public" data-off-label="private" data-album-id="#{@album.id}"
 
 #photos style="clear: both;" data-album-id=params[:id]
   ul#polaroids

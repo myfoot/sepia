@@ -32,7 +32,7 @@ gem 'slim-rails'
 gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
-gem "bootstrap-switch-rails"
+gem "bootstrap-switch-rails", "2.0.0"
 gem 'underscore-rails'
 
 # for background job
