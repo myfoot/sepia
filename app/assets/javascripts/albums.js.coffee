@@ -210,3 +210,5 @@ $('#load-photo-link').bind 'click', ->
     $link.attr 'data-current-page', data.page
     $link.hide() if data.page * 50 >= data.all_count
     SepiaUtil.apply_fancybox($('.display-link'))
+
+$("#album-visibility").bootstrapSwitch();
