@@ -9,13 +9,12 @@ module Clients
       PROVIDER = :twitter
 
       def initialize access_token
-        Twitter::REST::Client.new do |config|
+        @client = Twitter::REST::Client.new do |config|
           config.consumer_key       = Settings.social.twitter.consumer_key
           config.consumer_secret    = Settings.social.twitter.consumer_secret
           config.oauth_token        = access_token.token
           config.oauth_token_secret = access_token.secret
         end
-        @client = Twitter::Client.new
         @user_name = access_token.name
         @user_id = access_token.user_id
       end
