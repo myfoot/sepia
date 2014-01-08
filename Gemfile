@@ -90,7 +90,7 @@ gem 'unicorn', group: [:development, :production]
 
 # Use Capistrano for deployment
 group :development, :deployment do
-  gem 'capistrano'
+  gem 'capistrano', '2.15.5'
   gem 'capistrano_colors'
   gem 'capistrano-ext'
   gem 'rvm-capistrano'
