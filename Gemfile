@@ -90,8 +90,8 @@ gem 'unicorn', group: [:development, :production]
 
 # Use Capistrano for deployment
 group :development, :deployment do
-  gem 'capistrano', '2.15.5'
-  gem 'capistrano_colors'
-  gem 'capistrano-ext'
-  gem 'rvm-capistrano'
+  gem 'capistrano', "3.0.1"
+  gem 'capistrano-rails', '1.1.0'
+  gem 'capistrano-bundler', '1.1.1'
+  gem 'capistrano-rvm', '0.1.0'
 end
