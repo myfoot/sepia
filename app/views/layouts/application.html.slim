@@ -28,15 +28,7 @@ html(lang="en")
         .navbar-inner
           .container-fluid
             = link_to image_tag('logo.png', size: "135x40"), root_path, style: "padding:0.5px 0px; position: absolute; left: 50%; margin-left: -67.5px;"
-            div
-              .pull-right
-                ul.nav.navbar-text
-                  li= link_to destroy_user_session_path, method: :delete do
-                    i.icon-signout
-                    | &nbsp;&nbsp;Sign out
-                  li= link_to current_user, style: "padding: 0 5px 0 0;" do
-                    = image_tag(current_user.avatar_url, size: "40x40")
-                    | &nbsp; #{current_user.name}
+            div.nav-collapse
               ul.nav
                 li= link_to root_path do
                   i.icon-picture
@@ -46,6 +38,16 @@ html(lang="en")
                   | &nbsp; Albums
               = form_tag root_path, class: "navbar-search" do
                 = text_field :user, :name, placeholder: "User name...", class: "search-query", style: "width:100px"
+              .pull-right
+                ul.nav
+                  li= link_to destroy_user_session_path, method: :delete do
+                    i.icon-signout
+                    | &nbsp;&nbsp;Sign out
+                  li= link_to current_user, style: "padding: 0 5px 0 0;" do
+                    = image_tag(current_user.avatar_url, size: "40x40")
+                    | &nbsp; #{current_user.name}
+            a.btn.btn-info.btn-navbar data-toggle="collapse" data-target=".nav-collapse"
+              i.icon-reorder
 
       #wrapper style="margin-top: 40px;"
         div.container-fluid
