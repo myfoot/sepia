@@ -30,7 +30,7 @@ describe Sepia::API::V1::Photo do
     }
 
     it { should be_success }
-    it "all photos of user" do
+    it "all photos of user", autodoc: true do
       expect(subject.body).to eq [ photo2, photo1 ].to_json
     end
   end

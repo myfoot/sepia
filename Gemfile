@@ -64,6 +64,7 @@ gem 'ninja', github: 'myfoot/ninja'
 group :test do
   gem 'sqlite3'
   gem 'delorean'
+  gem 'autodoc', '0.3.4'
 end
 
 group :development, :test do
