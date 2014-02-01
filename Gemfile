@@ -52,6 +52,11 @@ gem 'twitter'
 gem 'instagram'
 gem 'foursquare2'
 
+# for api server
+gem "doorkeeper", "1.0.0"
+gem "grape", "0.6.1"
+gem "grape-doorkeeper", github: "yagince/grape-doorkeeper"
+
 gem 'mysql2', group: [:production, :development]
 
 gem 'ninja', github: 'myfoot/ninja'
