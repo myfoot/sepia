@@ -20,6 +20,12 @@ Sepia::Application.routes.draw do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
+  # for oauth2 api
+  use_doorkeeper do
+    controllers :applications => 'oauth/applications'
+  end
+  mount Sepia::API, at: '/api'
+
   # TODO : authenticate
   require 'sidekiq/web'
   mount Sidekiq::Web, at: '/sidekiq'

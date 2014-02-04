@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :access_tokens
   has_many :photos
   has_many :albums
+  has_many :oauth_applications, class_name: 'Doorkeeper::Application', as: :owner
 
   scope :like, -> (v) { where("name LIKE ?", "%#{v}%") }
 
